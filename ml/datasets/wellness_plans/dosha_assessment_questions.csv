@@ -1,0 +1,61 @@
+question_id,category,question_text,option_text,dosha_tag
+1,Physical,What is your natural body frame?,"Thin, light, hard to gain weight",Vata
+1,Physical,What is your natural body frame?,"Medium, muscular, moderate build",Pitta
+1,Physical,What is your natural body frame?,"Broad, heavy, gains weight easily",Kapha
+2,Physical,How would you describe your skin?,"Dry, thin, cool to touch",Vata
+2,Physical,How would you describe your skin?,"Warm, oily, prone to redness or rashes",Pitta
+2,Physical,How would you describe your skin?,"Thick, moist, smooth, cool",Kapha
+3,Physical,How is your hair?,"Dry, brittle, thin",Vata
+3,Physical,How is your hair?,"Fine, early graying or thinning, oily",Pitta
+3,Physical,How is your hair?,"Thick, wavy, oily, lustrous",Kapha
+4,Physical,How would you describe your eyes?,"Small, dry, active or darting",Vata
+4,Physical,How would you describe your eyes?,"Sharp, penetrating, sensitive to light",Pitta
+4,Physical,How would you describe your eyes?,"Large, calm, thick lashes",Kapha
+5,Physical,How are your joints?,"Prominent, crack often, thin",Vata
+5,Physical,How are your joints?,"Loose, flexible, moderate",Pitta
+5,Physical,How are your joints?,"Large, well-lubricated, thick",Kapha
+6,Physiological,How is your appetite?,"Irregular, sometimes forget to eat",Vata
+6,Physiological,How is your appetite?,"Strong, sharp, irritable if delayed",Pitta
+6,Physiological,How is your appetite?,"Steady but low, can easily skip meals",Kapha
+7,Physiological,How is your digestion?,"Variable, gas or bloating common",Vata
+7,Physiological,How is your digestion?,"Fast, strong, occasional acidity or heartburn",Pitta
+7,Physiological,How is your digestion?,"Slow, heavy feeling after meals",Kapha
+8,Physiological,How do you sleep?,"Light, interrupted, restless",Vata
+8,Physiological,How do you sleep?,"Moderate, sound but short",Pitta
+8,Physiological,How do you sleep?,"Deep, heavy, hard to wake up",Kapha
+9,Physiological,How is your energy through the day?,"Comes in bursts, fluctuates",Vata
+9,Physiological,How is your energy through the day?,"Steady with intense focus periods",Pitta
+9,Physiological,How is your energy through the day?,"Slow to start, steady and enduring",Kapha
+10,Physiological,What temperature do you prefer?,"Warmth, feels cold easily",Vata
+10,Physiological,What temperature do you prefer?,"Cool, feels hot easily or sweats",Pitta
+10,Physiological,What temperature do you prefer?,"Adapts well, prefers warm-dry over cold-damp",Kapha
+11,Physiological,Which weather bothers you most?,"Cold, dry, windy weather",Vata
+11,Physiological,Which weather bothers you most?,"Hot weather",Pitta
+11,Physiological,Which weather bothers you most?,"Cold, damp weather",Kapha
+12,Mental,When stressed, you tend to,"Feel anxious, worried, overwhelmed",Vata
+12,Mental,When stressed, you tend to,"Feel irritable, frustrated, angry",Pitta
+12,Mental,When stressed, you tend to,"Withdraw, become quiet, avoidant",Kapha
+13,Mental,How is your memory?,"Quick to learn, quick to forget",Vata
+13,Mental,How is your memory?,"Sharp, clear, good recall",Pitta
+13,Mental,How is your memory?,"Slow to learn, but retains long-term",Kapha
+14,Mental,How do you make decisions?,"Quick, sometimes impulsive, changes mind",Vata
+14,Mental,How do you make decisions?,"Decisive, analytical, focused",Pitta
+14,Mental,How do you make decisions?,"Slow, thoughtful, resistant to change",Kapha
+15,Mental,What is your general temperament?,"Enthusiastic, creative, easily excited",Vata
+15,Mental,What is your general temperament?,"Confident, competitive, goal-driven",Pitta
+15,Mental,What is your general temperament?,"Calm, patient, easygoing",Kapha
+16,Mental,Under pressure at work or deadlines you become,"Scattered, anxious energy",Vata
+16,Mental,Under pressure at work or deadlines you become,"Focused, intense, can get short-tempered",Pitta
+16,Mental,Under pressure at work or deadlines you become,"Steady, unbothered, sometimes procrastinates",Kapha
+17,Lifestyle,How do you speak?,"Fast, talkative, jumps between topics",Vata
+17,Lifestyle,How do you speak?,"Sharp, precise, persuasive",Pitta
+17,Lifestyle,How do you speak?,"Slow, deliberate, calm",Kapha
+18,Lifestyle,What exercise do you prefer?,"Variety, tires quickly",Vata
+18,Lifestyle,What exercise do you prefer?,"Competitive or intense activity",Pitta
+18,Lifestyle,What exercise do you prefer?,"Steady, low-intensity, needs motivation to start",Kapha
+19,Lifestyle,How do you react to change?,"Adapt quickly but get unsettled",Vata
+19,Lifestyle,How do you react to change?,"Adapt if it makes logical sense",Pitta
+19,Lifestyle,How do you react to change?,"Resist change, prefer routine",Kapha
+20,Lifestyle,How is your thirst level?,"Variable, often forget to drink water",Vata
+20,Lifestyle,How is your thirst level?,"Frequent, strong thirst",Pitta
+20,Lifestyle,How is your thirst level?,"Low, rarely feel thirsty",Kapha

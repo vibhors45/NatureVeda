@@ -1,0 +1,215 @@
+[
+  {
+    "remedy_name": "Arnica Montana",
+    "source_substance": "Leopard's Bane (plant)",
+    "key_symptoms_indicated": "Bruising, muscle soreness, trauma, shock after injury",
+    "potency_common": "30C",
+    "usage_notes": "Commonly used for physical trauma and soreness; not for open wounds without guidance."
+  },
+  {
+    "remedy_name": "Belladonna",
+    "source_substance": "Deadly Nightshade (plant)",
+    "key_symptoms_indicated": "Sudden high fever, throbbing headache, flushed hot face",
+    "potency_common": "30C",
+    "usage_notes": "Used for sudden-onset intense symptoms; discontinue once fever breaks."
+  },
+  {
+    "remedy_name": "Nux Vomica",
+    "source_substance": "Poison Nut (plant seed)",
+    "key_symptoms_indicated": "Indigestion, overeating, irritability, hangover-like symptoms",
+    "potency_common": "30C",
+    "usage_notes": "Often used for digestive upset linked to rich food or stress."
+  },
+  {
+    "remedy_name": "Chamomilla",
+    "source_substance": "German Chamomile (plant)",
+    "key_symptoms_indicated": "Irritability, teething discomfort in children, oversensitivity to pain",
+    "potency_common": "30C",
+    "usage_notes": "Frequently used for children who are unusually cranky or inconsolable."
+  },
+  {
+    "remedy_name": "Pulsatilla",
+    "source_substance": "Windflower (plant)",
+    "key_symptoms_indicated": "Weepy mood, changeable symptoms, worse in warm rooms, better in open air",
+    "potency_common": "30C",
+    "usage_notes": "Suited to gentle, emotional, easily-discouraged temperaments."
+  },
+  {
+    "remedy_name": "Rhus Toxicodendron",
+    "source_substance": "Poison Ivy (plant)",
+    "key_symptoms_indicated": "Joint stiffness better with movement, restlessness, worse in cold damp weather",
+    "potency_common": "30C",
+    "usage_notes": "Commonly used for stiffness that eases as the person keeps moving."
+  },
+  {
+    "remedy_name": "Aconitum Napellus",
+    "source_substance": "Monkshood (plant)",
+    "key_symptoms_indicated": "Sudden fear or anxiety, early stage of colds/fevers, restlessness",
+    "potency_common": "30C",
+    "usage_notes": "Best used at the very first sign of sudden symptom onset."
+  },
+  {
+    "remedy_name": "Gelsemium",
+    "source_substance": "Yellow Jasmine (plant)",
+    "key_symptoms_indicated": "Weakness, drowsiness, dull heavy headache, dread of anticipation",
+    "potency_common": "30C",
+    "usage_notes": "Often associated with flu-like fatigue and pre-event anxiety."
+  },
+  {
+    "remedy_name": "Bryonia Alba",
+    "source_substance": "White Bryony (plant)",
+    "key_symptoms_indicated": "Dry cough, worse with any movement, irritability, thirst for large amounts of water",
+    "potency_common": "30C",
+    "usage_notes": "Suited to symptoms that clearly worsen with motion."
+  },
+  {
+    "remedy_name": "Ignatia Amara",
+    "source_substance": "St. Ignatius Bean (plant seed)",
+    "key_symptoms_indicated": "Grief, emotional shock, sighing, mood swings",
+    "potency_common": "30C",
+    "usage_notes": "Traditionally used for acute emotional distress or bereavement."
+  },
+  {
+    "remedy_name": "Allium Cepa",
+    "source_substance": "Red Onion (plant)",
+    "key_symptoms_indicated": "Watery eyes, runny nose, symptoms resembling hay fever or early cold",
+    "potency_common": "30C",
+    "usage_notes": "Named for its resemblance to onion-induced eye and nose irritation."
+  },
+  {
+    "remedy_name": "Sulphur",
+    "source_substance": "Sulphur (mineral)",
+    "key_symptoms_indicated": "Skin itching worse from heat/bathing, burning sensations, untidy tendency",
+    "potency_common": "30C",
+    "usage_notes": "Often used for chronic skin complaints; consult a homeopath for constitutional use."
+  },
+  {
+    "remedy_name": "Calcarea Carbonica",
+    "source_substance": "Calcium Carbonate (mineral",
+    "key_symptoms_indicated": " oyster shell)",
+    "potency_common": "Sluggishness, chilliness, slow development in children, anxiety about health",
+    "usage_notes": "30C",
+    "null": [
+      "Considered a constitutional remedy; typically guided by a practitioner."
+    ]
+  },
+  {
+    "remedy_name": "Natrum Muriaticum",
+    "source_substance": "Sodium Chloride (common salt)",
+    "key_symptoms_indicated": "Grief held inward, headaches, craving salt, emotional withdrawal",
+    "potency_common": "30C",
+    "usage_notes": "Associated with suppressed emotion and salt cravings."
+  },
+  {
+    "remedy_name": "Lycopodium",
+    "source_substance": "Club Moss (plant spores)",
+    "key_symptoms_indicated": "Digestive bloating, lack of confidence, worse in late afternoon",
+    "potency_common": "30C",
+    "usage_notes": "Often linked to digestive complaints paired with low self-confidence."
+  },
+  {
+    "remedy_name": "Arsenicum Album",
+    "source_substance": "Arsenic trioxide (mineral)",
+    "key_symptoms_indicated": "Anxiety with restlessness, burning pains better with warmth, food poisoning symptoms",
+    "potency_common": "30C",
+    "usage_notes": "Traditionally used for acute digestive upset with anxiety and chilliness."
+  },
+  {
+    "remedy_name": "Apis Mellifica",
+    "source_substance": "Honeybee (whole insect)",
+    "key_symptoms_indicated": "Stinging swelling, puffiness, worse with heat, better with cold application",
+    "potency_common": "30C",
+    "usage_notes": "Associated with bee-sting-like swelling and puffy skin reactions."
+  },
+  {
+    "remedy_name": "Hepar Sulphuris",
+    "source_substance": "Calcium sulphide (mineral)",
+    "key_symptoms_indicated": "Sensitive to touch, splinter-like pain, worse in cold air",
+    "potency_common": "30C",
+    "usage_notes": "Often used for infections that are extremely sensitive to touch or cold."
+  },
+  {
+    "remedy_name": "Silicea",
+    "source_substance": "Silica (mineral)",
+    "key_symptoms_indicated": "Low stamina, slow healing, sensitive to cold, weak nails and hair",
+    "potency_common": "30C",
+    "usage_notes": "Considered a constitutional remedy for depleted, slow-to-recover states."
+  },
+  {
+    "remedy_name": "Phosphorus",
+    "source_substance": "Phosphorus (mineral)",
+    "key_symptoms_indicated": "Craving cold drinks, easily bleeding, sensitive and sympathetic nature",
+    "potency_common": "30C",
+    "usage_notes": "Used for those who are open, sensitive, and prone to nosebleeds or flushing."
+  },
+  {
+    "remedy_name": "Kali Bichromicum",
+    "source_substance": "Potassium dichromate (mineral)",
+    "key_symptoms_indicated": "Thick stringy discharge, sinus congestion, pain in small spots",
+    "potency_common": "30C",
+    "usage_notes": "Associated with thick mucus and sinus-related complaints."
+  },
+  {
+    "remedy_name": "Euphrasia",
+    "source_substance": "Eyebright (plant)",
+    "key_symptoms_indicated": "Watery eyes with irritation, profuse tearing, hay fever symptoms",
+    "potency_common": "30C",
+    "usage_notes": "Commonly used for eye irritation and watering associated with allergies."
+  },
+  {
+    "remedy_name": "Cantharis",
+    "source_substance": "Spanish Fly (insect)",
+    "key_symptoms_indicated": "Burning sensations, urinary discomfort, burns and blisters",
+    "potency_common": "30C",
+    "usage_notes": "Traditionally used for burning pain, including minor burns."
+  },
+  {
+    "remedy_name": "Ruta Graveolens",
+    "source_substance": "Rue (plant)",
+    "key_symptoms_indicated": "Tendon and ligament strain, bruised bone-deep pain, overuse injuries",
+    "potency_common": "30C",
+    "usage_notes": "Often used for sprains and overuse injuries after physical strain."
+  },
+  {
+    "remedy_name": "Symphytum",
+    "source_substance": "Comfrey (plant)",
+    "key_symptoms_indicated": "Bone injury support, fracture healing aid",
+    "potency_common": "30C",
+    "usage_notes": "Traditionally associated with supporting recovery after bone injury; use alongside medical care."
+  },
+  {
+    "remedy_name": "Ferrum Phosphoricum",
+    "source_substance": "Iron phosphate (mineral)",
+    "key_symptoms_indicated": "Early stage fever, mild inflammation, low-grade infections",
+    "potency_common": "30C",
+    "usage_notes": "Used for early, mild fever states before more specific symptoms appear."
+  },
+  {
+    "remedy_name": "Cocculus Indicus",
+    "source_substance": "Indian Cockle (plant seed)",
+    "key_symptoms_indicated": "Motion sickness, nausea, dizziness from lack of sleep",
+    "potency_common": "30C",
+    "usage_notes": "Commonly associated with travel sickness and fatigue-related dizziness."
+  },
+  {
+    "remedy_name": "Antimonium Crudum",
+    "source_substance": "Antimony sulphide (mineral)",
+    "key_symptoms_indicated": "Digestive upset from overeating, thick white-coated tongue, irritability",
+    "potency_common": "30C",
+    "usage_notes": "Used for digestive complaints linked to overindulgence."
+  },
+  {
+    "remedy_name": "Sepia",
+    "source_substance": "Cuttlefish ink (animal)",
+    "key_symptoms_indicated": "Emotional exhaustion, hormonal complaints, indifference and low motivation",
+    "potency_common": "30C",
+    "usage_notes": "Considered a constitutional remedy, often associated with fatigue and hormonal shifts."
+  },
+  {
+    "remedy_name": "Carbo Vegetabilis",
+    "source_substance": "Vegetable charcoal (plant-derived)",
+    "key_symptoms_indicated": "Bloating, sluggish circulation, feeling of exhaustion after illness",
+    "potency_common": "30C",
+    "usage_notes": "Sometimes referred to as a remedy for low vitality and digestive sluggishness."
+  }
+]

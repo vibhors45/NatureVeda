@@ -1,0 +1,92 @@
+{
+  "Vata": {
+    "summary": "Vata governs movement, creativity, and change in the body. When balanced, it brings vitality and flexibility; when aggravated, it leads to anxiety, dryness, and irregular digestion.",
+    "diet": {
+      "favor": [
+        "Warm, cooked, moist foods",
+        "Sweet, sour, and salty tastes",
+        "Healthy fats like ghee and sesame oil",
+        "Root vegetables (carrots, sweet potatoes)",
+        "Warm milk, soaked nuts"
+      ],
+      "reduce": [
+        "Cold, dry, or raw foods",
+        "Excess caffeine",
+        "Carbonated drinks",
+        "Bitter, pungent, and astringent tastes in excess",
+        "Irregular meal timing"
+      ]
+    },
+    "daily_routine": {
+      "wake_time": "Before 6:30 AM",
+      "sleep_time": "By 10:00 PM",
+      "notes": "Vata benefits most from consistency — regular meal times and a steady daily rhythm help reduce anxiety and restlessness."
+    },
+    "exercise": {
+      "type": "Gentle, grounding movement",
+      "examples": ["Yoga", "Walking", "Tai Chi"],
+      "notes": "Avoid overexertion or highly intense workouts, which can aggravate Vata further."
+    },
+    "seasonal_note": "Vata tends to aggravate in autumn and early winter; extra warmth, oil massage (abhyanga), and routine are especially helpful during this season."
+  },
+  "Pitta": {
+    "summary": "Pitta governs digestion, metabolism, and transformation. When balanced, it brings sharp intellect and strong digestion; when aggravated, it leads to irritability, inflammation, and acidity.",
+    "diet": {
+      "favor": [
+        "Cool or room-temperature foods",
+        "Sweet, bitter, and astringent tastes",
+        "Fresh fruits like melon, coconut, and grapes",
+        "Leafy greens and cooling vegetables",
+        "Coconut water, mint, and cilantro"
+      ],
+      "reduce": [
+        "Spicy, oily, and fried foods",
+        "Excess salt and sour foods",
+        "Alcohol and caffeine",
+        "Skipping meals when very hungry",
+        "Eating late at night"
+      ]
+    },
+    "daily_routine": {
+      "wake_time": "Around 6:00 AM",
+      "sleep_time": "By 10:30 PM",
+      "notes": "Pitta benefits from avoiding the hottest part of the day for intense activity or heavy meals; midday is best for the main meal since digestion is strongest then."
+    },
+    "exercise": {
+      "type": "Moderate intensity, avoid overheating",
+      "examples": ["Swimming", "Evening walks", "Moderate cycling"],
+      "notes": "Exercise during cooler parts of the day; avoid competitive or overly intense workouts that raise internal heat and irritability."
+    },
+    "seasonal_note": "Pitta tends to aggravate in summer; cooling foods, shade, and avoiding midday sun are especially helpful during this season."
+  },
+  "Kapha": {
+    "summary": "Kapha governs structure, stability, and lubrication in the body. When balanced, it brings strength and calm; when aggravated, it leads to sluggishness, weight gain, and congestion.",
+    "diet": {
+      "favor": [
+        "Warm, light, and dry foods",
+        "Pungent, bitter, and astringent tastes",
+        "Steamed vegetables and legumes",
+        "Spices like ginger, black pepper, and turmeric",
+        "Honey in moderation instead of sugar"
+      ],
+      "reduce": [
+        "Heavy, oily, and cold foods",
+        "Excess dairy, especially cold dairy",
+        "Sweet and salty tastes in excess",
+        "Overeating or eating late at night",
+        "Daytime napping"
+      ]
+    },
+    "daily_routine": {
+      "wake_time": "Before 6:00 AM",
+      "sleep_time": "By 10:00 PM",
+      "notes": "Kapha benefits from an energizing start to the day; avoid oversleeping, which increases heaviness and sluggishness."
+    },
+    "exercise": {
+      "type": "Vigorous, energizing activity",
+      "examples": ["Running", "Cardio", "Dynamic yoga (Vinyasa)"],
+      "notes": "Morning exercise works especially well for Kapha, helping to counter natural sluggishness and stimulate metabolism for the day."
+    },
+    "seasonal_note": "Kapha tends to aggravate in late winter and spring; lighter foods and more vigorous activity are especially helpful during this season."
+  }
+}

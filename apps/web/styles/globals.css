@@ -1,0 +1,84 @@
+/* Global responsive rules — mobile, tablet, desktop, and large-screen/TV.
+   Applied globally so every page (even ones using inline styles) gets
+   sensible base scaling, since inline styles alone can't do media queries. */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* Fluid base font size: scales between mobile and large screens instead
+     of jumping abruptly at breakpoints. */
+  font-size: clamp(15px, 1vw + 10px, 18px);
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Any page content wrapper should never exceed a comfortable reading
+   width on very large screens/TVs, and should breathe more on mobile. */
+.page-container {
+  width: 100%;
+  padding-left: clamp(16px, 4vw, 40px);
+  padding-right: clamp(16px, 4vw, 40px);
+}
+
+/* --- Nav bar responsive behavior --- */
+.nav-bar {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 640px) {
+  .nav-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .nav-links {
+    flex-direction: column;
+    gap: 10px !important;
+    width: 100%;
+  }
+}
+
+/* --- Card grids: reflow automatically, no per-breakpoint rules needed
+   thanks to auto-fill/minmax, but tighten gaps on small screens --- */
+@media (max-width: 480px) {
+  .card-grid {
+    gap: 12px !important;
+  }
+}
+
+/* --- Large screens / TV (10-foot UI consideration) ---
+   Scale up spacing and type so content is comfortably readable from a
+   distance, and keep a max content width so lines don't stretch too wide. */
+@media (min-width: 1600px) {
+  .page-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  body {
+    font-size: 1.15rem;
+  }
+}
+
+@media (min-width: 2200px) {
+  /* True large-display/TV range */
+  body {
+    font-size: 1.4rem;
+  }
+  .page-container {
+    max-width: 1700px;
+  }
+}
+
+/* --- Touch target sizing on touch devices --- */
+@media (pointer: coarse) {
+  button,
+  input,
+  a.nav-link {
+    min-height: 44px;
+  }
+}

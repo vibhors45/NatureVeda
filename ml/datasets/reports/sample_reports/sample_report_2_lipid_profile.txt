@@ -1,0 +1,18 @@
+NATUREVEDA SAMPLE DIAGNOSTIC LABS
+(This is a fictional dummy report for development/testing purposes only)
+
+Patient Name: Test Patient B
+Age/Sex: 45 / Male
+Report Date: 2026-06-02
+Report Type: Lipid Profile
+
+TEST NAME                   RESULT      UNIT        REFERENCE RANGE
+Total Cholesterol           228         mg/dL       < 200
+LDL Cholesterol             152         mg/dL       < 100
+HDL Cholesterol             38          mg/dL       > 40
+Triglycerides               210         mg/dL       < 150
+VLDL Cholesterol            42          mg/dL       5 - 40
+
+Remarks: Total cholesterol, LDL, and triglycerides above reference range;
+HDL below reference range. Suggestive of a Kapha-type metabolic imbalance
+pattern. Clinical correlation and lifestyle review advised.

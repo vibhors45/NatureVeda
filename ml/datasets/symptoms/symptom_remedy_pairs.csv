@@ -1,0 +1,98 @@
+symptom_text,dosha_imbalance,recommended_plant,recommended_therapy,severity_flag
+"I have a mild cough and sore throat",Kapha,Tulsi,Tulsi Tea for Respiratory Health,low
+"I feel dizzy and lightheaded when I stand up",Vata,Ginger,Ginger Tea for Circulation,medium
+"My stomach feels bloated after eating",Vata,Ginger,Ginger Digestive Tea,low
+"I have trouble sleeping and feel restless at night",Vata,Ashwagandha,Ashwagandha Stress Relief,low
+"I feel stressed and anxious most of the day",Vata,Ashwagandha,Ashwagandha Calming Routine,low
+"My joints feel stiff and achy in the morning",Kapha,Turmeric,Turmeric Golden Milk for Joints,low
+"I have acidity and a burning sensation after meals",Pitta,Mint,Mint Cooling Tea,low
+"My skin feels dry and irritated",Vata,Aloe Vera,Aloe Vera Skin Soothing,low
+"I have acne and oily skin breakouts",Pitta,Neem,Neem Skin Cleanse,low
+"I forget things easily and have trouble concentrating",Vata,Brahmi,Brahmi Memory Support,low
+"I have a mild fever and body ache",Pitta,Tulsi,Tulsi Immunity Tea,medium
+"I feel low energy and tired all the time",Kapha,Ashwagandha,Ashwagandha Energy Routine,low
+"My hair is falling out more than usual",Pitta,Hibiscus,Hibiscus Hair Care,low
+"I have indigestion after eating heavy food",Kapha,Curry Leaf,Curry Leaf Digestive Aid,low
+"I feel nauseous and slightly dizzy after eating",Vata,Ginger,Ginger Nausea Relief,medium
+"I have a headache that feels warm and throbbing",Pitta,Rose,Rose Cooling Therapy,low
+"I feel constipated and my digestion feels slow",Vata,Papaya,Papaya Digestive Support,low
+"My throat feels dry and scratchy",Vata,Tulsi,Tulsi Honey Remedy,low
+"I have swelling and minor joint pain after exercise",Kapha,Turmeric,Turmeric Anti-Inflammatory Paste,low
+"I feel overheated and irritable in hot weather",Pitta,Mint,Mint Cooling Infusion,low
+"I have a minor cut or skin wound that is healing slowly",Pitta,Marigold,Marigold Wound Care,low
+"I feel weak and have low immunity, catching colds often",Kapha,Tulsi,Tulsi Immunity Boost,low
+"I have chest tightness and difficulty breathing deeply",Kapha,Tulsi,Tulsi Respiratory Support,high
+"I have severe chest pain radiating to my arm",,,,emergency
+"I am having thoughts of harming myself",,,,emergency
+"I have high blood sugar and want natural support",Kapha,Fenugreek,Fenugreek Blood Sugar Support,medium
+"My blood sugar feels unbalanced along with tiredness",Kapha,Cinnamon,Cinnamon Metabolic Support,medium
+"I have a blocked nose and can't breathe properly",Kapha,Black Pepper,Black Pepper Steam Inhalation,low
+"I feel gassy and have stomach cramps",Vata,Fennel,Fennel Digestive Tea,low
+"My breath smells bad after meals",Pitta,Fennel,Fennel Mouth Freshener,low
+"I feel toxic and sluggish, like I need to detox",Kapha,Coriander,Coriander Detox Water,low
+"I have bad breath and indigestion together",Kapha,Cardamom,Cardamom Digestive Aid,low
+"I have a sore throat and hoarse voice",Vata,Licorice,Licorice Root Tea for Throat,low
+"I feel low immunity and catch infections often",Tridoshic,Guduchi,Giloy Immunity Booster,low
+"I have a mild fever with body weakness",Pitta,Guduchi,Giloy Fever Support,medium
+"I feel hormonal imbalance and fatigue",Pitta,Shatavari,Shatavari Hormonal Balance,low
+"I feel very hot and sweaty even indoors",Pitta,Vetiver,Vetiver Cooling Water,low
+"I feel anxious and cannot relax my mind",Vata,Jasmine,Jasmine Calming Tea,low
+"I have stress along with poor digestion",Kapha,Lemongrass,Lemongrass Stress and Digestion Tea,low
+"I feel bloated and gassy after a heavy meal",Vata,Sabja Basil Seeds,Basil Seed Digestive Cooler,low
+"I have joint pain and swelling that gets worse in cold weather",Vata,Turmeric,Turmeric Warming Paste,low
+"I have dry skin and cracked heels in winter",Vata,Aloe Vera,Aloe Vera Winter Skin Care,low
+"I feel heavy and sluggish after eating dairy",Kapha,Ginger,Ginger Digestive Support,low
+"I have mild insomnia and racing thoughts at night",Vata,Ashwagandha,Ashwagandha Sleep Routine,low
+"I feel weak after recovering from a cold",Kapha,Tulsi,Tulsi Post-Recovery Support,low
+"I have menstrual cramps and discomfort",Vata,Shatavari,Shatavari Menstrual Comfort,low
+"I feel dehydrated and overheated after being in the sun",Pitta,Vetiver,Vetiver Rehydration Cooler,low
+"I have persistent hiccups after eating",Vata,Cardamom,Cardamom Hiccup Relief,low
+"I am experiencing severe difficulty breathing and turning blue",,,,emergency
+"I have a very high fever above 104 degrees with confusion",,,,emergency
+"I feel constipated and my digestion is very slow lately",Vata,Triphala,Triphala Nightly Cleanse,low
+"I have acne scars and uneven skin tone",Pitta,Manjistha,Manjistha Skin Clarity,low
+"I keep falling sick and want to build long term immunity",Tridoshic,Amalaki Guduchi Blend,Immunity Rejuvenation Routine,low
+"I feel bloated and have poor appetite after illness",Kapha,Vidanga,Vidanga Appetite Reset,low
+"I have mild swelling in my feet and ankles",Kapha,Punarnava,Punarnava Swelling Relief,medium
+"My hair is thinning and scalp feels itchy",Pitta,Bhringraj,Bhringraj Scalp Care,low
+"I feel run down and catch colds every season",Kapha,Kalonji Black Seed,Kalonji Immunity Routine,low
+"I feel nutritionally low and fatigued despite eating well",Vata,Moringa,Moringa Nutrition Boost,low
+"I have a mild upset stomach after travel",Pitta,Indian Gooseberry Leaves,Amla Leaf Digestive Soother,low
+"I feel overheated and my skin is flushed and irritated",Pitta,Sandalwood,Sandalwood Cooling Paste,low
+"My scalp feels dry and hair looks dull",Pitta,Henna,Henna Hair Conditioning,low
+"I have gas and mild colic discomfort",Vata,Dill,Dill Seed Digestive Tea,low
+"I have loose motions and stomach upset",Kapha,Bael,Bael Fruit Remedy,medium
+"My cholesterol feels high and joints ache occasionally",Kapha,Guggul,Guggul Metabolic Support,medium
+"I feel sluggish and think my liver needs support",Pitta,Kutki,Kutki Liver Support,medium
+"I have a persistent dry cough at night",Vata,Licorice,Licorice Night Cough Relief,low
+"I feel puffy under my eyes and generally low energy",Kapha,Punarnava,Punarnava Gentle Detox,low
+"I have recurring mouth ulcers",Pitta,Coriander,Coriander Cooling Mouth Rinse,low
+"I feel heavy after meals and want better metabolism",Kapha,Guggul,Guggul Metabolism Boost,low
+"My eyes feel strained and tired from screen time",Pitta,Triphala,Triphala Eye Wash,low
+"I have mild anxiety before important events",Vata,Ashwagandha,Ashwagandha Pre-Event Calm,low
+"I feel dull skin and want a natural glow",Pitta,Manjistha,Manjistha Glow Routine,low
+"I have body odor and excess sweating",Pitta,Sandalwood,Sandalwood Cooling Body Care,low
+"I am experiencing sudden severe abdominal pain that won't go away",,,,emergency
+"I have uncontrolled bleeding that won't stop",,,,emergency
+"I have racing thoughts and can't fall asleep",Vata,Jatamansi,Jatamansi Sleep Support,low
+"I feel mentally foggy and my speech feels unclear",Kapha,Vacha,Vacha Mental Clarity,low
+"I have occasional heart palpitations and want cardiovascular support",Kapha,Arjuna,Arjuna Heart Support,medium
+"I feel constipated and need gentle rejuvenation",Vata,Haritaki,Haritaki Nightly Detox,low
+"I have a chesty cough with mucus",Kapha,Bibhitaki,Bibhitaki Respiratory Clear,low
+"I feel overheated and want a cooling refreshing drink",Pitta,Kokum,Kokum Cooling Sherbet,low
+"I have trouble sleeping and mild joint discomfort at night",Vata,Nutmeg,Nutmeg Sleep Aid,low
+"I have a toothache and gum sensitivity",Kapha,Clove,Clove Dental Relief,medium
+"I have gas and bloating after a spicy meal",Kapha,Ajwain,Ajwain Digestive Relief,low
+"I have a lingering low fever and feel sluggish",Pitta,Chirayata,Chirayata Fever Support,medium
+"I want general antioxidant support and better digestion",Pitta,Pomegranate,Pomegranate Wellness Routine,low
+"I feel low on energy and nutrition despite eating regularly",Vata,Drumstick Leaves,Moringa Leaf Nutrition Boost,low
+"I feel toxic and want a gentle morning detox",Pitta,Wheatgrass,Wheatgrass Morning Detox,low
+"I have bad breath and mild indigestion after meals",Kapha,Betel Leaf,Betel Leaf Digestive Aid,low
+"I have skin irritation and want blood purification support",Pitta,Indian Sarsaparilla,Sarsaparilla Skin Cleanse,low
+"I feel anxious before sleeping and my mind won't settle",Vata,Jatamansi,Jatamansi Calming Routine,low
+"I have mild memory lapses and unclear thinking",Kapha,Vacha,Vacha Memory Clarity,low
+"I feel breathless after mild exertion",Kapha,Arjuna,Arjuna Breathing Support,medium
+"I have chronic constipation that doesn't improve",Vata,Triphala,Triphala Extended Digestive Support,medium
+"I feel dizzy and nauseous while traveling",Vata,Ginger,Ginger Travel Sickness Relief,low
+"I am vomiting blood or have black stools",,,,emergency
+"I have sudden weakness or numbness on one side of my body",,,,emergency
