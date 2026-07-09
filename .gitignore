@@ -20,9 +20,6 @@ build/
 ml/models/*.h5
 ml/models/*.pt
 ml/models/*.keras
-ml/datasets/plants/images/**/*.jpg
-ml/datasets/plants/images/**/*.png
-ml/datasets/plants/images/**/*.jpeg
 
 # OS files
 .DS_Store
