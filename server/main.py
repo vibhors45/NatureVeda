@@ -6,8 +6,11 @@ Run locally:
     uvicorn main:app --reload
 """
 
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(
     title="NatureVeda API",
@@ -34,6 +37,19 @@ def root():
 @app.get("/health")
 def health_check():
     return {"status": "healthy"}
+
+
+# Serves the training images so the frontend can show a reference photo
+# of the identified plant, e.g. GET /plant-images/Neem/AI-S-020.jpg
+PLANT_IMAGES_DIR = Path(__file__).resolve().parent.parent / "ml" / "datasets" / "plants" / "images"
+if PLANT_IMAGES_DIR.exists():
+    app.mount(
+        "/plant-images",
+        StaticFiles(directory=str(PLANT_IMAGES_DIR)),
+        name="plant-images",
+    )
+else:
+    print(f"WARNING: plant images directory not found at {PLANT_IMAGES_DIR} -- reference images will not load.")
 
 
 from routes import plants, symptoms, dosha, reports

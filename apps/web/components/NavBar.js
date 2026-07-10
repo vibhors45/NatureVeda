@@ -4,6 +4,7 @@ const links = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/my-garden", label: "My Garden" },
   { href: "/plants", label: "Explore Plants" },
+  { href: "/therapies", label: "Therapies" },
   { href: "/homeopathy", label: "Homeopathy" },
   { href: "/scanner", label: "Plant Scanner" },
   { href: "/symptom-checker", label: "Symptom Checker" },

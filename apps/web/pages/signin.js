@@ -6,6 +6,7 @@ import {
   signUpWithEmail,
   signInWithPhone,
   verifyPhoneOtp,
+  isSupabaseConfigured,
 } from "../lib/supabaseClient";
 
 // Simple sign-in page supporting three methods, matching the
@@ -45,9 +46,27 @@ export default function SignIn() {
   return (
     <div>
       <NavBar />
-      <div style={{ maxWidth: 400, margin: "80px auto", fontFamily: "sans-serif" }}>
-      <h1>Welcome Back</h1>
-      <p>Sign in to continue your NatureVeda wellness journey.</p>
+      <div style={pageStyles.outer}>
+      <div style={pageStyles.glassCard}>
+      <h1 style={pageStyles.title}>Welcome Back</h1>
+      <p style={pageStyles.subtext}>Sign in to continue your NatureVeda wellness journey.</p>
+
+      {!isSupabaseConfigured && (
+        <div
+          style={{
+            padding: 12,
+            marginBottom: 16,
+            borderRadius: 8,
+            backgroundColor: "#FCF7EE",
+            border: "1px solid #F0C37A",
+            color: "#946200",
+            fontSize: 13,
+          }}
+        >
+          Sign-in isn't fully set up yet — add your Supabase keys to{" "}
+          <code>.env.local</code> to enable this.
+        </div>
+      )}
 
       <button onClick={signInWithGoogle} style={{ width: "100%", padding: 12, marginBottom: 16 }}>
         Continue with Google
@@ -109,6 +128,33 @@ export default function SignIn() {
 
       {error && <p style={{ color: "red" }}>{error}</p>}
       </div>
+      </div>
     </div>
   );
 }
+
+const pageStyles = {
+  outer: {
+    padding: "60px 24px",
+    minHeight: "70vh",
+    background:
+      "linear-gradient(135deg, #E8E2D0 0%, #D9E3D3 45%, #F0DCC0 100%)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "flex-start",
+  },
+  glassCard: {
+    maxWidth: 400,
+    width: "100%",
+    padding: "36px 32px",
+    borderRadius: 20,
+    backgroundColor: "rgba(255, 255, 255, 0.65)",
+    backdropFilter: "blur(14px)",
+    WebkitBackdropFilter: "blur(14px)",
+    border: "1px solid rgba(255, 255, 255, 0.6)",
+    boxShadow: "0 8px 32px rgba(75, 122, 81, 0.12)",
+    fontFamily: "sans-serif",
+  },
+  title: { fontFamily: "Georgia, serif", fontSize: 28, margin: "0 0 4px 0" },
+  subtext: { color: "#6B6B5E", fontSize: 14, marginBottom: 20 },
+};

@@ -1,20 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 
-// Sample starting state — stored in browser state only for now, since
-// there's no backend table for a user's garden yet. Structured to make
-// swapping in a real Supabase-backed fetch/save straightforward later.
-const initialGarden = [
-  { id: 1, name: "Tulsi", status: "Growing", addedDate: "2026-06-01", careNote: "Water today" },
-  { id: 2, name: "Ashwagandha", status: "Planning", addedDate: "2026-06-10", careNote: "Full sun" },
-];
-
+const STORAGE_KEY = "natureveda_garden";
 const STATUS_OPTIONS = ["Planning", "Growing", "Harvested"];
 
 export default function MyGarden() {
-  const [garden, setGarden] = useState(initialGarden);
+  const [garden, setGarden] = useState([]);
+  const [loaded, setLoaded] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [newPlantName, setNewPlantName] = useState("");
+
+  // Load from localStorage once on mount -- this is real persistence
+  // (survives reloads) even without a backend database yet, and the
+  // Dashboard reads this same key so the two stay in sync.
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        setGarden(JSON.parse(saved));
+      } catch (e) {
+        setGarden([]);
+      }
+    }
+    setLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (loaded) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(garden));
+    }
+  }, [garden, loaded]);
 
   function addPlant(e) {
     e.preventDefault();

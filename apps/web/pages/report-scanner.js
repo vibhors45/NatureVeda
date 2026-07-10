@@ -102,6 +102,17 @@ export default function ReportScanner() {
                 <p style={styles.rowDetail}>
                   {row.result} {row.unit} — reference: {row.reference_range}
                 </p>
+                {row.suggested_plants && row.suggested_plants.length > 0 && (
+                  <div style={styles.suggestionBox}>
+                    <p style={styles.suggestionLabel}>Traditional guidance:</p>
+                    {row.suggested_plants.map((p, j) => (
+                      <div key={j} style={styles.suggestionItem}>
+                        <strong>{p.name}</strong> — {p.preparation}{" "}
+                        <span style={styles.dosageText}>({p.dosage})</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -186,4 +197,18 @@ const styles = {
     color: flag === "high" || flag === "low" ? "#6B4A00" : "#4B7A51",
   }),
   rowDetail: { fontSize: 13, color: "#6B6B5E" },
+  suggestionBox: {
+    marginTop: 8,
+    paddingTop: 8,
+    borderTop: "1px solid #F0EEE6",
+  },
+  suggestionLabel: {
+    fontSize: 11,
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+    color: "#946200",
+    marginBottom: 4,
+  },
+  suggestionItem: { fontSize: 13, color: "#3D3D33", marginBottom: 4 },
+  dosageText: { color: "#8A8A7C" },
 };

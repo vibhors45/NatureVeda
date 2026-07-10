@@ -1,0 +1,625 @@
+[
+  {
+    "symptom_text": "I have a mild cough and sore throat",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Tulsi",
+    "recommended_therapy": "Tulsi Tea for Respiratory Health",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel dizzy and lightheaded when I stand up",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Ginger",
+    "recommended_therapy": "Ginger Tea for Circulation",
+    "severity_flag": "medium"
+  },
+  {
+    "symptom_text": "My stomach feels bloated after eating",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Ginger",
+    "recommended_therapy": "Ginger Digestive Tea",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have trouble sleeping and feel restless at night",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Ashwagandha",
+    "recommended_therapy": "Ashwagandha Stress Relief",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel stressed and anxious most of the day",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Ashwagandha",
+    "recommended_therapy": "Ashwagandha Calming Routine",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "My joints feel stiff and achy in the morning",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Turmeric",
+    "recommended_therapy": "Turmeric Golden Milk for Joints",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have acidity and a burning sensation after meals",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Mint",
+    "recommended_therapy": "Mint Cooling Tea",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "My skin feels dry and irritated",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Aloe Vera",
+    "recommended_therapy": "Aloe Vera Skin Soothing",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have acne and oily skin breakouts",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Neem",
+    "recommended_therapy": "Neem Skin Cleanse",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I forget things easily and have trouble concentrating",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Brahmi",
+    "recommended_therapy": "Brahmi Memory Support",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have a mild fever and body ache",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Tulsi",
+    "recommended_therapy": "Tulsi Immunity Tea",
+    "severity_flag": "medium"
+  },
+  {
+    "symptom_text": "I feel low energy and tired all the time",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Ashwagandha",
+    "recommended_therapy": "Ashwagandha Energy Routine",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "My hair is falling out more than usual",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Hibiscus",
+    "recommended_therapy": "Hibiscus Hair Care",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have indigestion after eating heavy food",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Curry Leaf",
+    "recommended_therapy": "Curry Leaf Digestive Aid",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel nauseous and slightly dizzy after eating",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Ginger",
+    "recommended_therapy": "Ginger Nausea Relief",
+    "severity_flag": "medium"
+  },
+  {
+    "symptom_text": "I have a headache that feels warm and throbbing",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Rose",
+    "recommended_therapy": "Rose Cooling Therapy",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel constipated and my digestion feels slow",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Papaya",
+    "recommended_therapy": "Papaya Digestive Support",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "My throat feels dry and scratchy",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Tulsi",
+    "recommended_therapy": "Tulsi Honey Remedy",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have swelling and minor joint pain after exercise",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Turmeric",
+    "recommended_therapy": "Turmeric Anti-Inflammatory Paste",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel overheated and irritable in hot weather",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Mint",
+    "recommended_therapy": "Mint Cooling Infusion",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have a minor cut or skin wound that is healing slowly",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Marigold",
+    "recommended_therapy": "Marigold Wound Care",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel weak and have low immunity, catching colds often",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Tulsi",
+    "recommended_therapy": "Tulsi Immunity Boost",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have chest tightness and difficulty breathing deeply",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Tulsi",
+    "recommended_therapy": "Tulsi Respiratory Support",
+    "severity_flag": "high"
+  },
+  {
+    "symptom_text": "I have high blood sugar and want natural support",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Fenugreek",
+    "recommended_therapy": "Fenugreek Blood Sugar Support",
+    "severity_flag": "medium"
+  },
+  {
+    "symptom_text": "My blood sugar feels unbalanced along with tiredness",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Cinnamon",
+    "recommended_therapy": "Cinnamon Metabolic Support",
+    "severity_flag": "medium"
+  },
+  {
+    "symptom_text": "I have a blocked nose and can't breathe properly",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Black Pepper",
+    "recommended_therapy": "Black Pepper Steam Inhalation",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel gassy and have stomach cramps",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Fennel",
+    "recommended_therapy": "Fennel Digestive Tea",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "My breath smells bad after meals",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Fennel",
+    "recommended_therapy": "Fennel Mouth Freshener",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel toxic and sluggish, like I need to detox",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Coriander",
+    "recommended_therapy": "Coriander Detox Water",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have bad breath and indigestion together",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Cardamom",
+    "recommended_therapy": "Cardamom Digestive Aid",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have a sore throat and hoarse voice",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Licorice",
+    "recommended_therapy": "Licorice Root Tea for Throat",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel low immunity and catch infections often",
+    "dosha_imbalance": "Tridoshic",
+    "recommended_plant": "Guduchi",
+    "recommended_therapy": "Giloy Immunity Booster",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have a mild fever with body weakness",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Guduchi",
+    "recommended_therapy": "Giloy Fever Support",
+    "severity_flag": "medium"
+  },
+  {
+    "symptom_text": "I feel hormonal imbalance and fatigue",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Shatavari",
+    "recommended_therapy": "Shatavari Hormonal Balance",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel very hot and sweaty even indoors",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Vetiver",
+    "recommended_therapy": "Vetiver Cooling Water",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel anxious and cannot relax my mind",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Jasmine",
+    "recommended_therapy": "Jasmine Calming Tea",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have stress along with poor digestion",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Lemongrass",
+    "recommended_therapy": "Lemongrass Stress and Digestion Tea",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel bloated and gassy after a heavy meal",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Sabja Basil Seeds",
+    "recommended_therapy": "Basil Seed Digestive Cooler",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have joint pain and swelling that gets worse in cold weather",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Turmeric",
+    "recommended_therapy": "Turmeric Warming Paste",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have dry skin and cracked heels in winter",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Aloe Vera",
+    "recommended_therapy": "Aloe Vera Winter Skin Care",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel heavy and sluggish after eating dairy",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Ginger",
+    "recommended_therapy": "Ginger Digestive Support",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have mild insomnia and racing thoughts at night",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Ashwagandha",
+    "recommended_therapy": "Ashwagandha Sleep Routine",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel weak after recovering from a cold",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Tulsi",
+    "recommended_therapy": "Tulsi Post-Recovery Support",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have menstrual cramps and discomfort",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Shatavari",
+    "recommended_therapy": "Shatavari Menstrual Comfort",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel dehydrated and overheated after being in the sun",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Vetiver",
+    "recommended_therapy": "Vetiver Rehydration Cooler",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have persistent hiccups after eating",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Cardamom",
+    "recommended_therapy": "Cardamom Hiccup Relief",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel constipated and my digestion is very slow lately",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Triphala",
+    "recommended_therapy": "Triphala Nightly Cleanse",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have acne scars and uneven skin tone",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Manjistha",
+    "recommended_therapy": "Manjistha Skin Clarity",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I keep falling sick and want to build long term immunity",
+    "dosha_imbalance": "Tridoshic",
+    "recommended_plant": "Amalaki Guduchi Blend",
+    "recommended_therapy": "Immunity Rejuvenation Routine",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel bloated and have poor appetite after illness",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Vidanga",
+    "recommended_therapy": "Vidanga Appetite Reset",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have mild swelling in my feet and ankles",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Punarnava",
+    "recommended_therapy": "Punarnava Swelling Relief",
+    "severity_flag": "medium"
+  },
+  {
+    "symptom_text": "My hair is thinning and scalp feels itchy",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Bhringraj",
+    "recommended_therapy": "Bhringraj Scalp Care",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel run down and catch colds every season",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Kalonji Black Seed",
+    "recommended_therapy": "Kalonji Immunity Routine",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel nutritionally low and fatigued despite eating well",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Moringa",
+    "recommended_therapy": "Moringa Nutrition Boost",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have a mild upset stomach after travel",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Indian Gooseberry Leaves",
+    "recommended_therapy": "Amla Leaf Digestive Soother",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel overheated and my skin is flushed and irritated",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Sandalwood",
+    "recommended_therapy": "Sandalwood Cooling Paste",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "My scalp feels dry and hair looks dull",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Henna",
+    "recommended_therapy": "Henna Hair Conditioning",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have gas and mild colic discomfort",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Dill",
+    "recommended_therapy": "Dill Seed Digestive Tea",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have loose motions and stomach upset",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Bael",
+    "recommended_therapy": "Bael Fruit Remedy",
+    "severity_flag": "medium"
+  },
+  {
+    "symptom_text": "My cholesterol feels high and joints ache occasionally",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Guggul",
+    "recommended_therapy": "Guggul Metabolic Support",
+    "severity_flag": "medium"
+  },
+  {
+    "symptom_text": "I feel sluggish and think my liver needs support",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Kutki",
+    "recommended_therapy": "Kutki Liver Support",
+    "severity_flag": "medium"
+  },
+  {
+    "symptom_text": "I have a persistent dry cough at night",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Licorice",
+    "recommended_therapy": "Licorice Night Cough Relief",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel puffy under my eyes and generally low energy",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Punarnava",
+    "recommended_therapy": "Punarnava Gentle Detox",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have recurring mouth ulcers",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Coriander",
+    "recommended_therapy": "Coriander Cooling Mouth Rinse",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel heavy after meals and want better metabolism",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Guggul",
+    "recommended_therapy": "Guggul Metabolism Boost",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "My eyes feel strained and tired from screen time",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Triphala",
+    "recommended_therapy": "Triphala Eye Wash",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have mild anxiety before important events",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Ashwagandha",
+    "recommended_therapy": "Ashwagandha Pre-Event Calm",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel dull skin and want a natural glow",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Manjistha",
+    "recommended_therapy": "Manjistha Glow Routine",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have body odor and excess sweating",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Sandalwood",
+    "recommended_therapy": "Sandalwood Cooling Body Care",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have racing thoughts and can't fall asleep",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Jatamansi",
+    "recommended_therapy": "Jatamansi Sleep Support",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel mentally foggy and my speech feels unclear",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Vacha",
+    "recommended_therapy": "Vacha Mental Clarity",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have occasional heart palpitations and want cardiovascular support",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Arjuna",
+    "recommended_therapy": "Arjuna Heart Support",
+    "severity_flag": "medium"
+  },
+  {
+    "symptom_text": "I feel constipated and need gentle rejuvenation",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Haritaki",
+    "recommended_therapy": "Haritaki Nightly Detox",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have a chesty cough with mucus",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Bibhitaki",
+    "recommended_therapy": "Bibhitaki Respiratory Clear",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel overheated and want a cooling refreshing drink",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Kokum",
+    "recommended_therapy": "Kokum Cooling Sherbet",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have trouble sleeping and mild joint discomfort at night",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Nutmeg",
+    "recommended_therapy": "Nutmeg Sleep Aid",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have a toothache and gum sensitivity",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Clove",
+    "recommended_therapy": "Clove Dental Relief",
+    "severity_flag": "medium"
+  },
+  {
+    "symptom_text": "I have gas and bloating after a spicy meal",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Ajwain",
+    "recommended_therapy": "Ajwain Digestive Relief",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have a lingering low fever and feel sluggish",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Chirayata",
+    "recommended_therapy": "Chirayata Fever Support",
+    "severity_flag": "medium"
+  },
+  {
+    "symptom_text": "I want general antioxidant support and better digestion",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Pomegranate",
+    "recommended_therapy": "Pomegranate Wellness Routine",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel low on energy and nutrition despite eating regularly",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Drumstick Leaves",
+    "recommended_therapy": "Moringa Leaf Nutrition Boost",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel toxic and want a gentle morning detox",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Wheatgrass",
+    "recommended_therapy": "Wheatgrass Morning Detox",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have bad breath and mild indigestion after meals",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Betel Leaf",
+    "recommended_therapy": "Betel Leaf Digestive Aid",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have skin irritation and want blood purification support",
+    "dosha_imbalance": "Pitta",
+    "recommended_plant": "Indian Sarsaparilla",
+    "recommended_therapy": "Sarsaparilla Skin Cleanse",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel anxious before sleeping and my mind won't settle",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Jatamansi",
+    "recommended_therapy": "Jatamansi Calming Routine",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I have mild memory lapses and unclear thinking",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Vacha",
+    "recommended_therapy": "Vacha Memory Clarity",
+    "severity_flag": "low"
+  },
+  {
+    "symptom_text": "I feel breathless after mild exertion",
+    "dosha_imbalance": "Kapha",
+    "recommended_plant": "Arjuna",
+    "recommended_therapy": "Arjuna Breathing Support",
+    "severity_flag": "medium"
+  },
+  {
+    "symptom_text": "I have chronic constipation that doesn't improve",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Triphala",
+    "recommended_therapy": "Triphala Extended Digestive Support",
+    "severity_flag": "medium"
+  },
+  {
+    "symptom_text": "I feel dizzy and nauseous while traveling",
+    "dosha_imbalance": "Vata",
+    "recommended_plant": "Ginger",
+    "recommended_therapy": "Ginger Travel Sickness Relief",
+    "severity_flag": "low"
+  }
+]

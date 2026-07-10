@@ -1,5 +1,6 @@
 import { useState } from "react";
 import NavBar from "../components/NavBar";
+import PlantImage from "../components/PlantImage";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://127.0.0.1:8000";
 
@@ -45,6 +46,8 @@ export default function PlantScanner() {
     }
   }
 
+  const prediction = result && result.success ? result.result : null;
+
   return (
     <div>
       <NavBar />
@@ -84,30 +87,39 @@ export default function PlantScanner() {
 
         {error && <div style={styles.errorBox}>{error}</div>}
 
-        {result && result.error === "not_trained" && (
+        {result && (result.error === "model_missing" || result.error === "identify_failed") && (
           <div style={styles.infoBox}>{result.message}</div>
         )}
 
-        {result && result.predictions && (
+        {prediction && (
           <div style={styles.resultsWrap}>
-            {result.low_confidence_warning && (
-              <p style={styles.lowConfidenceWarning}>{result.message}</p>
+            {!prediction.confident && (
+              <p style={styles.lowConfidenceWarning}>
+                This is an uncertain match — treat as a possibility, not a
+                confirmed identification.
+              </p>
             )}
-            {result.predictions.map((pred, i) => (
-              <div key={i} style={styles.predictionCard}>
-                <div style={styles.predictionHeader}>
-                  <h3 style={styles.predictionName}>{pred.predicted_name}</h3>
-                  <span style={styles.confidenceTag}>
-                    {Math.round(pred.confidence * 100)}%
-                  </span>
-                </div>
-                {pred.plant_details && (
-                  <p style={styles.predictionBenefits}>
-                    {pred.plant_details.key_benefits}
-                  </p>
-                )}
+
+            <div style={styles.predictionCard}>
+              <PlantImage
+                name={prediction.plant}
+                imageUrl={prediction.image}
+                style={styles.predictionImage}
+              />
+
+              <div style={styles.predictionHeader}>
+                <h3 style={styles.predictionName}>{prediction.plant}</h3>
+                <span style={styles.confidenceTag}>
+                  {prediction.confidence}%
+                </span>
               </div>
-            ))}
+
+              {prediction.details && (
+                <p style={styles.predictionBenefits}>
+                  {prediction.details.key_benefits}
+                </p>
+              )}
+            </div>
           </div>
         )}
       </div>
@@ -183,6 +195,9 @@ const styles = {
     borderRadius: 14,
     padding: 16,
     marginBottom: 12,
+  },
+  predictionImage: {
+    marginBottom: 14,
   },
   predictionHeader: {
     display: "flex",

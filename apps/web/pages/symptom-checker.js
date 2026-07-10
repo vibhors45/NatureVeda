@@ -88,6 +88,23 @@ export default function SymptomChecker() {
               </p>
               <h3 style={styles.remedyName}>{match.recommended_plant}</h3>
               <p style={styles.therapyName}>{match.recommended_therapy}</p>
+
+              {match.plant_details && (
+                <div style={styles.remedyDetails}>
+                  <p>
+                    <strong>How to prepare:</strong>{" "}
+                    {match.plant_details.preparation}
+                  </p>
+                  <p>
+                    <strong>Dosage:</strong> {match.plant_details.dosage}
+                  </p>
+                  <p style={styles.safetyNote}>
+                    <strong>Safety:</strong>{" "}
+                    {match.plant_details.safety_notes}
+                  </p>
+                </div>
+              )}
+
               {match.severity_flag === "medium" && (
                 <p style={styles.mediumFlag}>
                   This may need closer attention — consider consulting a
@@ -195,6 +212,15 @@ const styles = {
     margin: "0 0 4px 0",
   },
   therapyName: { fontSize: 14, color: "#3D3D33" },
+  remedyDetails: {
+    marginTop: 10,
+    paddingTop: 10,
+    borderTop: "1px solid #F0EEE6",
+    fontSize: 13,
+    color: "#3D3D33",
+    lineHeight: 1.6,
+  },
+  safetyNote: { color: "#946200" },
   mediumFlag: {
     marginTop: 10,
     fontSize: 13,

@@ -6,22 +6,32 @@ export default function Home() {
     <div>
       <NavBar />
 
-      <div style={styles.hero}>
-        <p style={styles.eyebrow}>AYUSH POWERED INTELLIGENCE</p>
-        <h1 style={styles.h1}>NatureVeda</h1>
-        <p style={styles.subtext}>
-          Bridging ancient Ayurvedic and Homeopathic wisdom with modern AI —
-          identify medicinal plants, discover your unique dosha
-          constitution, and get personalized traditional wellness guidance.
-        </p>
+      <div style={styles.heroOuter}>
+        <div style={styles.heroGlassCard}>
+          <p style={styles.eyebrow}>AYUSH · HOMEOPATHY · POWERED BY AI</p>
+          <h1 style={styles.h1}>NatureVeda</h1>
 
-        <div style={styles.ctaRow}>
-          <Link href="/dosha-assessment" style={styles.primaryButton}>
-            Take Free Dosha Assessment
-          </Link>
-          <Link href="/plants" style={styles.secondaryButton}>
-            Explore Plants
-          </Link>
+          <p style={styles.shloka}>
+            "स्वस्थस्य स्वास्थ्य रक्षणम्"
+          </p>
+          <p style={styles.shlokaTranslation}>
+            "Protecting the health of the healthy" — Charaka Samhita
+          </p>
+
+          <p style={styles.subtext}>
+            Bridging ancient Ayurvedic and Homeopathic wisdom with modern AI —
+            identify medicinal plants, discover your unique dosha
+            constitution, and get personalized traditional wellness guidance.
+          </p>
+
+          <div style={styles.ctaRow}>
+            <Link href="/dosha-assessment" style={styles.primaryButton}>
+              Take Free Dosha Assessment
+            </Link>
+            <Link href="/plants" style={styles.secondaryButton}>
+              Explore Plants
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -43,6 +53,18 @@ export default function Home() {
           description="A 20-question guided assessment to uncover your unique constitution and a personalized wellness plan."
           href="/dosha-assessment"
           linkLabel="Take Assessment →"
+        />
+        <FeatureCard
+          title="Therapies"
+          description="Evidence-informed herbal therapies with clear preparation, dosage, and safety guidance."
+          href="/therapies"
+          linkLabel="Browse Therapies →"
+        />
+        <FeatureCard
+          title="Plant Scanner"
+          description="Upload a photo of a leaf or plant to identify its species and Ayurvedic properties instantly."
+          href="/scanner"
+          linkLabel="Scan a Plant →"
         />
       </div>
 
@@ -68,11 +90,37 @@ function FeatureCard({ title, description, href, linkLabel }) {
 }
 
 const styles = {
-  hero: {
+  heroOuter: {
+    padding: "60px 24px",
+    background:
+      "linear-gradient(135deg, #E8E2D0 0%, #D9E3D3 45%, #F0DCC0 100%)",
+    display: "flex",
+    justifyContent: "center",
+  },
+  heroGlassCard: {
+    maxWidth: 680,
+    width: "100%",
     textAlign: "center",
-    padding: "80px 24px 60px",
+    padding: "48px 40px",
+    borderRadius: 24,
+    backgroundColor: "rgba(255, 255, 255, 0.55)",
+    backdropFilter: "blur(14px)",
+    WebkitBackdropFilter: "blur(14px)",
+    border: "1px solid rgba(255, 255, 255, 0.6)",
+    boxShadow: "0 8px 32px rgba(75, 122, 81, 0.12)",
     fontFamily: "sans-serif",
-    backgroundColor: "#FBF8F2",
+  },
+  shloka: {
+    fontFamily: "Georgia, serif",
+    fontSize: 22,
+    color: "#4B7A51",
+    margin: "16px 0 4px 0",
+  },
+  shlokaTranslation: {
+    fontSize: 13,
+    color: "#8A8A7C",
+    fontStyle: "italic",
+    marginBottom: 20,
   },
   eyebrow: {
     textTransform: "uppercase",
