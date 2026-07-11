@@ -5,22 +5,15 @@ pydantic==2.7.4
 supabase==2.5.0
 python-dotenv==1.0.1
 
-# ML / plant identification -- TFLite runtime instead of full TensorFlow.
-# Same trained model, same accuracy, but the interpreter itself uses a
-# fraction of the RAM full TensorFlow needs to import and run.
 tflite-runtime==2.14.0
 pillow==10.3.0
 numpy==1.26.4
 
-# Symptom matching (NLP) -- unchanged model/accuracy. torch is pinned to
-# the CPU-only build via PyTorch's own index, which skips the multi-GB
-# CUDA/GPU packages that were bloating memory (Render has no GPU anyway).
 --extra-index-url https://download.pytorch.org/whl/cpu
 torch
 sentence-transformers==3.0.1
 scikit-learn==1.5.0
 pandas==2.2.2
 
-# OCR for health reports
 pytesseract==0.3.10
 pdf2image==1.17.0
