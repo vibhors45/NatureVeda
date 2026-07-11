@@ -17,21 +17,59 @@ export default function SymptomChecker() {
     setError(null);
     setResult(null);
 
+    // Free-tier hosting (e.g. Render) can take 30-60s to wake up from
+    // sleep on the first request, and embedding-based symptom matching
+    // can be slow on a cold model load -- give it real time instead of
+    // failing fast.
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 60000);
+
     try {
       const res = await fetch(`${API_BASE}/api/symptoms/check`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: input }),
+        signal: controller.signal,
       });
+      clearTimeout(timeoutId);
 
-      if (!res.ok) throw new Error(`Server error (${res.status})`);
+      if (!res.ok) {
+        let detail = "";
+        try {
+          const body = await res.json();
+          detail = body.error || body.message || "";
+        } catch (parseErr) {
+          // response wasn't JSON (e.g. an HTML error page) -- ignore
+        }
+        throw new Error(
+          `Server error (${res.status})${detail ? `: ${detail}` : ""}`
+        );
+      }
+
       const data = await res.json();
       setResult(data);
     } catch (err) {
-      setError(
-        "Couldn't reach the symptom checker service. Make sure the backend " +
-          "server is running at " + API_BASE + "."
-      );
+      clearTimeout(timeoutId);
+      console.error("Symptom checker request failed:", err);
+
+      if (err.name === "AbortError") {
+        setError(
+          "This is taking longer than expected. The backend may be " +
+            "waking up from sleep (free hosting) -- please wait a moment " +
+            "and try again."
+        );
+      } else if (err.message && err.message.startsWith("Server error")) {
+        setError(
+          `${err.message}. The symptom checker service hit an error while ` +
+            "processing this -- check the backend logs for details."
+        );
+      } else {
+        setError(
+          "Couldn't reach the symptom checker service at " + API_BASE +
+            ". Check that the backend is deployed and reachable, and " +
+            "that NEXT_PUBLIC_API_BASE is set correctly."
+        );
+      }
     } finally {
       setLoading(false);
     }

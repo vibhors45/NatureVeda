@@ -24,18 +24,59 @@ export default function ReportScanner() {
     const formData = new FormData();
     formData.append("file", file);
 
+    // OCR + PDF parsing can be slow, and free-tier hosting (e.g. Render)
+    // can also take 30-60s to wake up from sleep on the first request --
+    // give it real time instead of failing fast.
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 60000);
+
     try {
       const res = await fetch(`${API_BASE}/api/reports/scan`, {
         method: "POST",
         body: formData,
+        signal: controller.signal,
       });
+      clearTimeout(timeoutId);
+
+      if (!res.ok) {
+        // Server responded, but with an error status -- this is a real
+        // backend problem on this route, not the server being offline.
+        let detail = "";
+        try {
+          const body = await res.json();
+          detail = body.error || body.message || "";
+        } catch (parseErr) {
+          // response wasn't JSON (e.g. an HTML error page) -- ignore
+        }
+        throw new Error(
+          `Server error (${res.status})${detail ? `: ${detail}` : ""}`
+        );
+      }
+
       const data = await res.json();
       setResult(data);
     } catch (err) {
-      setError(
-        "Couldn't reach the report scanning service. Make sure the backend " +
-          "server is running at " + API_BASE + "."
-      );
+      clearTimeout(timeoutId);
+      console.error("Report scanner request failed:", err);
+
+      if (err.name === "AbortError") {
+        setError(
+          "The scan is taking longer than expected. The backend may be " +
+            "waking up from sleep (free hosting) or the report is large -- " +
+            "please wait a moment and try again."
+        );
+      } else if (err.message && err.message.startsWith("Server error")) {
+        setError(
+          `${err.message}. The report scanning service hit an error while ` +
+            "processing this file -- check the backend logs for details."
+        );
+      } else {
+        setError(
+          "Couldn't reach the report scanning service at " + API_BASE +
+            ". Check that the backend is deployed and reachable, and " +
+            "that NEXT_PUBLIC_API_BASE is set correctly."
+        );
+      }
     } finally {
       setLoading(false);
     }

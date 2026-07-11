@@ -29,18 +29,60 @@ export default function PlantScanner() {
     const formData = new FormData();
     formData.append("file", file);
 
+    // Free-tier hosting (e.g. Render) can take 30-60s to wake up from
+    // sleep on the first request, so we give it real time instead of
+    // failing fast, and we tell the user what's actually happening.
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 60000);
+
     try {
       const res = await fetch(`${API_BASE}/api/plants/identify`, {
         method: "POST",
         body: formData,
+        signal: controller.signal,
       });
+      clearTimeout(timeoutId);
+
+      if (!res.ok) {
+        // Server responded, but with an error status -- this is a real
+        // backend problem (crash/timeout/OOM on this route), not the
+        // server being offline, so say so distinctly.
+        let detail = "";
+        try {
+          const body = await res.json();
+          detail = body.error || body.message || "";
+        } catch (parseErr) {
+          // response wasn't JSON (e.g. an HTML error page) -- ignore
+        }
+        throw new Error(
+          `Server error (${res.status})${detail ? `: ${detail}` : ""}`
+        );
+      }
+
       const data = await res.json();
       setResult(data);
     } catch (err) {
-      setError(
-        "Couldn't reach the scanner service. Make sure the backend server " +
-          "is running at " + API_BASE + "."
-      );
+      clearTimeout(timeoutId);
+      console.error("Plant scanner request failed:", err);
+
+      if (err.name === "AbortError") {
+        setError(
+          "The scan is taking longer than expected. The backend may be " +
+            "waking up from sleep (free hosting) -- please wait a moment " +
+            "and try again."
+        );
+      } else if (err.message && err.message.startsWith("Server error")) {
+        setError(
+          `${err.message}. The plant scanner service hit an error while ` +
+            "processing this image -- check the backend logs for details."
+        );
+      } else {
+        setError(
+          "Couldn't reach the scanner service at " + API_BASE + ". Check " +
+            "that the backend is deployed and reachable, and that " +
+            "NEXT_PUBLIC_API_BASE is set correctly."
+        );
+      }
     } finally {
       setLoading(false);
     }
