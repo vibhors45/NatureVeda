@@ -23,8 +23,6 @@ model = keras.models.load_model(MODEL_PATH)
 
 print("Converting to TFLite (no quantization -- full accuracy preserved)...")
 converter = tf.lite.TFLiteConverter.from_keras_model(model)
-# NOTE: no converter.optimizations set -- this keeps full float32
-# precision, identical to the original model's predictions.
 tflite_model = converter.convert()
 
 with open(OUTPUT_PATH, "wb") as f:

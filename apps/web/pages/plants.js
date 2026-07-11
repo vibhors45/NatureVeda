@@ -2,11 +2,8 @@ import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import PlantImage from "../components/PlantImage";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://127.0.0.1:8000";
-
 export default function PlantExplorer() {
   const [plants, setPlants] = useState([]);
-  const [imagesByName, setImagesByName] = useState({});
   const [search, setSearch] = useState("");
   const [doshaFilter, setDoshaFilter] = useState("All");
   const [loading, setLoading] = useState(true);
@@ -18,23 +15,6 @@ export default function PlantExplorer() {
         setPlants(data);
         setLoading(false);
       });
-
-    // The static plants.json doesn't carry photos, so fetch the image
-    // for each species from the backend (which already knows the real
-    // training-image filenames) and index it by plant name for lookup.
-    fetch(`${API_BASE}/api/plants/`)
-      .then((r) => r.json())
-      .then((data) => {
-        const map = {};
-        (data.plants || []).forEach((p) => {
-          map[p.name] = p.image;
-        });
-        setImagesByName(map);
-      })
-      .catch(() => {
-        // If the backend isn't reachable, cards just fall back to the
-        // PlantImage placeholder -- the rest of the page still works.
-      });
   }, []);
 
   const doshaOptions = ["All", "Vata", "Pitta", "Kapha", "Tridoshic"];
@@ -42,10 +22,10 @@ export default function PlantExplorer() {
   const filtered = plants.filter((plant) => {
     const matchesSearch =
       search.trim() === "" ||
-      plant.name.toLowerCase().includes(search.toLowerCase()) ||
-      plant.sanskrit_name.toLowerCase().includes(search.toLowerCase()) ||
-      plant.scientific_name.toLowerCase().includes(search.toLowerCase()) ||
-      plant.key_benefits.toLowerCase().includes(search.toLowerCase());
+      (plant.name || "").toLowerCase().includes(search.toLowerCase()) ||
+      (plant.sanskrit_name || "").toLowerCase().includes(search.toLowerCase()) ||
+      (plant.scientific_name || "").toLowerCase().includes(search.toLowerCase()) ||
+      (plant.key_benefits || "").toLowerCase().includes(search.toLowerCase());
 
     const matchesDosha =
       doshaFilter === "All" || plant.dosha_effect === doshaFilter;
@@ -101,7 +81,7 @@ export default function PlantExplorer() {
 
       <div className="card-grid" style={styles.grid}>
         {filtered.map((plant) => (
-          <PlantCard key={plant.name} plant={plant} imageUrl={imagesByName[plant.name]} />
+          <PlantCard key={plant.name} plant={plant} />
         ))}
       </div>
 
@@ -115,13 +95,12 @@ export default function PlantExplorer() {
   );
 }
 
-function PlantCard({ plant, imageUrl }) {
-  const benefits = plant.key_benefits.split(",").map((b) => b.trim());
+function PlantCard({ plant }) {
+  const benefits = (plant.key_benefits || "").split(",").map((b) => b.trim()).filter(Boolean);
 
   return (
     <div style={styles.card}>
-      <PlantImage name={plant.name} imageUrl={imageUrl} style={styles.cardImage} />
-
+      <PlantImage name={plant.name} style={{ marginBottom: 12 }} />
       <div style={styles.cardTags}>
         <span style={styles.tag}>{plant.dosha_effect}</span>
         <span style={styles.tagOutline}>{plant.virya}</span>
@@ -219,9 +198,6 @@ const styles = {
     borderRadius: 16,
     padding: 20,
     backgroundColor: "#fff",
-  },
-  cardImage: {
-    marginBottom: 14,
   },
   cardTags: { display: "flex", gap: 6, marginBottom: 10 },
   tag: {
