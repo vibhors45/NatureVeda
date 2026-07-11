@@ -79,17 +79,8 @@ async def scan_report(file: UploadFile = File(...)):
             shutil.copyfileobj(file.file, tmp)
             tmp_path = tmp.name
 
-        if ext in {".png", ".jpg", ".jpeg"}:
+        if ext in {".png", ".jpg", ".jpeg", ".pdf"}:
             raw_text = extract_text_from_image(tmp_path)
-        elif ext == ".pdf":
-            from pdf2image import convert_from_path
-            pages = convert_from_path(tmp_path)
-            raw_text = ""
-            for page in pages:
-                page_path = tmp_path + "_page.png"
-                page.save(page_path)
-                raw_text += extract_text_from_image(page_path) + "\n"
-                os.remove(page_path)
         else:
             return {"error": "DOCX parsing not yet implemented in this starter version."}
 

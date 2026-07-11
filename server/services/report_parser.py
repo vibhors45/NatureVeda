@@ -1,9 +1,9 @@
 """
 Health report parsing service.
 
-Takes raw text (either OCR output from pytesseract, or plain text for
-testing) and extracts test name / result / unit / reference range rows
-using pattern matching. Then flags values outside the reference range.
+Takes raw text (from a hosted OCR API, or plain text for testing) and
+extracts test name / result / unit / reference range rows using pattern
+matching. Then flags values outside the reference range.
 
 Uses re.search (not a strict full-line match) with a lenient pattern,
 since real-world OCR output rarely has perfectly aligned whitespace --
@@ -15,9 +15,10 @@ surfaces which values are outside range and suggests this may correlate
 with a general Ayurvedic pattern, with a strong disclaimer.
 """
 
+import os
 import re
-from PIL import Image
-import pytesseract
+
+import requests
 
 # Lenient row pattern: test name (letters/numbers/spaces/parens), then a
 # result number, then an optional unit, then a reference range in any of
@@ -38,11 +39,38 @@ DISCLAIMER = (
     "qualified doctor, especially for any values significantly out of range."
 )
 
+OCR_SPACE_API_URL = "https://api.ocr.space/parse/image"
+OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", "helloworld")
 
-def extract_text_from_image(image_path: str) -> str:
-    """OCR an uploaded report image using free, local Tesseract."""
-    image = Image.open(image_path)
-    return pytesseract.image_to_string(image)
+
+def extract_text_from_image(file_path: str) -> str:
+    """
+    OCR an uploaded report (image or PDF) using the OCR.space hosted API.
+    Works for both images and PDFs, so this same function now handles both
+    -- no local Tesseract or Poppler binary required, which matters since
+    Render's native environment doesn't allow installing either.
+    """
+    with open(file_path, "rb") as f:
+        response = requests.post(
+            OCR_SPACE_API_URL,
+            files={"file": f},
+            data={
+                "apikey": OCR_SPACE_API_KEY,
+                "language": "eng",
+                "OCREngine": 2,
+                "scale": True,
+            },
+            timeout=30,
+        )
+    response.raise_for_status()
+    result = response.json()
+
+    if result.get("IsErroredOnProcessing"):
+        error_msg = result.get("ErrorMessage") or ["Unknown OCR error"]
+        raise RuntimeError(f"OCR.space error: {error_msg}")
+
+    parsed_results = result.get("ParsedResults") or []
+    return "\n".join(r.get("ParsedText", "") for r in parsed_results)
 
 
 def parse_report_text(raw_text: str) -> dict:
@@ -65,9 +93,6 @@ def parse_report_text(raw_text: str) -> dict:
         unit = (match.group("unit") or "").strip()
         ref_range = match.group("ref_range").strip()
 
-        # Skip obvious false positives (e.g. a date or phone number that
-        # happens to match the numeric pattern) -- test names should have
-        # at least one letter.
         if not re.search(r"[A-Za-z]", test_name):
             continue
 
@@ -93,13 +118,6 @@ def parse_report_text(raw_text: str) -> dict:
 
 
 def _check_out_of_range(value: float, ref_range: str) -> str:
-    """
-    Simple range check. Handles formats like:
-      "12.0 - 15.5", "12.0 to 15.5", "12.0–15.5"  -> between
-      "< 200"   -> less-than ceiling
-      "> 40"    -> greater-than floor
-    Returns "low", "high", "normal", or "unknown".
-    """
     ref_range = ref_range.strip()
 
     less_than = re.match(r"<\s*([\d.]+)", ref_range)
