@@ -1,4 +1,3 @@
-import PlantImage from "../components/PlantImage";
 import { useState } from "react";
 import NavBar from "../components/NavBar";
 
@@ -25,52 +24,18 @@ export default function ReportScanner() {
     const formData = new FormData();
     formData.append("file", file);
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 60000);
-
     try {
       const res = await fetch(`${API_BASE}/api/reports/scan`, {
         method: "POST",
         body: formData,
-        signal: controller.signal,
       });
-      clearTimeout(timeoutId);
-
-      if (!res.ok) {
-        let detail = "";
-        try {
-          const body = await res.json();
-          detail = body.error || body.message || "";
-        } catch (parseErr) {}
-        throw new Error(
-          `Server error (${res.status})${detail ? `: ${detail}` : ""}`
-        );
-      }
-
       const data = await res.json();
       setResult(data);
     } catch (err) {
-      clearTimeout(timeoutId);
-      console.error("Report scanner request failed:", err);
-
-      if (err.name === "AbortError") {
-        setError(
-          "The scan is taking longer than expected. The backend may be " +
-            "waking up from sleep (free hosting) or the report is large -- " +
-            "please wait a moment and try again."
-        );
-      } else if (err.message && err.message.startsWith("Server error")) {
-        setError(
-          `${err.message}. The report scanning service hit an error while ` +
-            "processing this file -- check the backend logs for details."
-        );
-      } else {
-        setError(
-          "Couldn't reach the report scanning service at " + API_BASE +
-            ". Check that the backend is deployed and reachable, and " +
-            "that NEXT_PUBLIC_API_BASE is set correctly."
-        );
-      }
+      setError(
+        "Couldn't reach the report scanning service. Make sure the backend " +
+          "server is running at " + API_BASE + "."
+      );
     } finally {
       setLoading(false);
     }
@@ -139,13 +104,9 @@ export default function ReportScanner() {
                 </p>
                 {row.suggested_plants && row.suggested_plants.length > 0 && (
                   <div style={styles.suggestionBox}>
-                    <p style={styles.suggestionLabel}>Ayurvedic guidance:</p>
+                    <p style={styles.suggestionLabel}>Ayurvedic Guidance</p>
                     {row.suggested_plants.map((p, j) => (
                       <div key={j} style={styles.suggestionItem}>
-                        <PlantImage
-                          name={p.name}
-                          style={{ marginBottom: 6, borderRadius: 8, maxWidth: 120 }}
-                        />
                         <strong>{p.name}</strong> — {p.preparation}{" "}
                         <span style={styles.dosageText}>({p.dosage})</span>
                       </div>
@@ -154,13 +115,19 @@ export default function ReportScanner() {
                 )}
 
                 {row.suggested_homeopathy && row.suggested_homeopathy.length > 0 && (
-                  <div style={styles.suggestionBox}>
-                    <p style={styles.suggestionLabel}>Homeopathic guidance:</p>
-                    {row.suggested_homeopathy.map((h, j) => (
-                      <div key={j} style={styles.suggestionItem}>
-                        <strong>{h.remedy_name}</strong> ({h.potency_common}) —{" "}
-                        {h.key_symptoms_indicated}
-                        <div style={styles.dosageText}>{h.usage_notes}</div>
+                  <div style={styles.homeopathyBox}>
+                    <p style={styles.homeopathyLabel}>Homeopathic Options</p>
+                    {row.suggested_homeopathy.map((remedy, j) => (
+                      <div key={j} style={styles.homeopathyItem}>
+                        <div style={styles.homeopathyItemHeader}>
+                          <strong>{remedy.remedy_name}</strong>
+                          <span style={styles.potencyTag}>
+                            {remedy.potency_common}
+                          </span>
+                        </div>
+                        <p style={styles.homeopathyIndication}>
+                          {remedy.key_symptoms_indicated}
+                        </p>
                       </div>
                     ))}
                   </div>
@@ -263,4 +230,42 @@ const styles = {
   },
   suggestionItem: { fontSize: 13, color: "#3D3D33", marginBottom: 4 },
   dosageText: { color: "#8A8A7C" },
+  homeopathyBox: {
+    marginTop: 10,
+    paddingTop: 10,
+    borderTop: "1px solid #F0EEE6",
+  },
+  homeopathyLabel: {
+    fontSize: 11,
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+    color: "#4B7A51",
+    marginBottom: 6,
+  },
+  homeopathyItem: {
+    backgroundColor: "#EEF3EC",
+    border: "1px solid #D9E5D6",
+    borderRadius: 10,
+    padding: "8px 10px",
+    marginBottom: 6,
+  },
+  homeopathyItemHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    fontSize: 13,
+    color: "#3D3D33",
+  },
+  potencyTag: {
+    fontSize: 11,
+    padding: "2px 8px",
+    borderRadius: 999,
+    backgroundColor: "#FCEFE3",
+    color: "#D97742",
+  },
+  homeopathyIndication: {
+    fontSize: 12.5,
+    color: "#6B6B5E",
+    margin: "4px 0 0 0",
+  },
 };

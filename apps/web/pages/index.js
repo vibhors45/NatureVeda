@@ -101,7 +101,7 @@ const styles = {
     maxWidth: 680,
     width: "100%",
     textAlign: "center",
-    padding: "48px 40px",
+    padding: "clamp(28px, 6vw, 48px) clamp(20px, 5vw, 40px)",
     borderRadius: 24,
     backgroundColor: "rgba(255, 255, 255, 0.55)",
     backdropFilter: "blur(14px)",
@@ -131,9 +131,11 @@ const styles = {
   },
   h1: {
     fontFamily: "Georgia, serif",
-    fontSize: 56,
+    fontSize: "clamp(34px, 9vw, 56px)",
     margin: "12px 0",
     color: "#2B2B24",
+    wordBreak: "break-word",
+    overflowWrap: "break-word",
   },
   subtext: {
     maxWidth: 560,

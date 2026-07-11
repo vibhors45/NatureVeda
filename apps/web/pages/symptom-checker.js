@@ -1,4 +1,3 @@
-import PlantImage from "../components/PlantImage";
 import { useState } from "react";
 import NavBar from "../components/NavBar";
 
@@ -18,53 +17,21 @@ export default function SymptomChecker() {
     setError(null);
     setResult(null);
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 60000);
-
     try {
       const res = await fetch(`${API_BASE}/api/symptoms/check`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: input }),
-        signal: controller.signal,
       });
-      clearTimeout(timeoutId);
 
-      if (!res.ok) {
-        let detail = "";
-        try {
-          const body = await res.json();
-          detail = body.error || body.message || "";
-        } catch (parseErr) {}
-        throw new Error(
-          `Server error (${res.status})${detail ? `: ${detail}` : ""}`
-        );
-      }
-
+      if (!res.ok) throw new Error(`Server error (${res.status})`);
       const data = await res.json();
       setResult(data);
     } catch (err) {
-      clearTimeout(timeoutId);
-      console.error("Symptom checker request failed:", err);
-
-      if (err.name === "AbortError") {
-        setError(
-          "This is taking longer than expected. The backend may be " +
-            "waking up from sleep (free hosting) -- please wait a moment " +
-            "and try again."
-        );
-      } else if (err.message && err.message.startsWith("Server error")) {
-        setError(
-          `${err.message}. The symptom checker service hit an error while ` +
-            "processing this -- check the backend logs for details."
-        );
-      } else {
-        setError(
-          "Couldn't reach the symptom checker service at " + API_BASE +
-            ". Check that the backend is deployed and reachable, and " +
-            "that NEXT_PUBLIC_API_BASE is set correctly."
-        );
-      }
+      setError(
+        "Couldn't reach the symptom checker service. Make sure the backend " +
+          "server is running at " + API_BASE + "."
+      );
     } finally {
       setLoading(false);
     }
@@ -119,15 +86,12 @@ export default function SymptomChecker() {
               <p style={styles.matchedSymptom}>
                 Closest match: "{match.matched_symptom}"
               </p>
-              <PlantImage
-                name={match.recommended_plant}
-                style={{ marginBottom: 10, borderRadius: 10 }}
-              />
               <h3 style={styles.remedyName}>{match.recommended_plant}</h3>
               <p style={styles.therapyName}>{match.recommended_therapy}</p>
 
               {match.plant_details && (
                 <div style={styles.remedyDetails}>
+                  <p style={styles.sectionLabel}>Ayurvedic Guidance</p>
                   <p>
                     <strong>How to prepare:</strong>{" "}
                     {match.plant_details.preparation}
@@ -139,6 +103,28 @@ export default function SymptomChecker() {
                     <strong>Safety:</strong>{" "}
                     {match.plant_details.safety_notes}
                   </p>
+                </div>
+              )}
+
+              {match.suggested_homeopathy && match.suggested_homeopathy.length > 0 && (
+                <div style={styles.homeopathyBox}>
+                  <p style={styles.sectionLabelHomeo}>Homeopathic Options</p>
+                  {match.suggested_homeopathy.map((remedy, j) => (
+                    <div key={j} style={styles.homeopathyItem}>
+                      <div style={styles.homeopathyItemHeader}>
+                        <strong>{remedy.remedy_name}</strong>
+                        <span style={styles.potencyTag}>
+                          {remedy.potency_common}
+                        </span>
+                      </div>
+                      <p style={styles.homeopathyIndication}>
+                        {remedy.key_symptoms_indicated}
+                      </p>
+                      <p style={styles.homeopathyUsage}>
+                        {remedy.usage_notes}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               )}
 
@@ -256,6 +242,59 @@ const styles = {
     fontSize: 13,
     color: "#3D3D33",
     lineHeight: 1.6,
+  },
+  sectionLabel: {
+    fontSize: 11,
+    textTransform: "uppercase",
+    letterSpacing: 0.6,
+    color: "#4B7A51",
+    fontWeight: 700,
+    marginBottom: 6,
+  },
+  sectionLabelHomeo: {
+    fontSize: 11,
+    textTransform: "uppercase",
+    letterSpacing: 0.6,
+    color: "#946200",
+    fontWeight: 700,
+    marginBottom: 8,
+  },
+  homeopathyBox: {
+    marginTop: 14,
+    paddingTop: 12,
+    borderTop: "1px solid #F0EEE6",
+  },
+  homeopathyItem: {
+    backgroundColor: "#FCF7EE",
+    border: "1px solid #F0DFC0",
+    borderRadius: 10,
+    padding: "10px 12px",
+    marginBottom: 8,
+  },
+  homeopathyItemHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    fontSize: 13,
+    color: "#3D3D33",
+  },
+  potencyTag: {
+    fontSize: 11,
+    padding: "2px 8px",
+    borderRadius: 999,
+    backgroundColor: "#FCEFE3",
+    color: "#D97742",
+  },
+  homeopathyIndication: {
+    fontSize: 12.5,
+    color: "#6B6B5E",
+    margin: "4px 0",
+  },
+  homeopathyUsage: {
+    fontSize: 12,
+    color: "#8A8A7C",
+    fontStyle: "italic",
+    margin: 0,
   },
   safetyNote: { color: "#946200" },
   mediumFlag: {

@@ -15,6 +15,62 @@ html {
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
+  /* Safety net: nothing on the site should ever force horizontal
+     scroll (e.g. a long unbroken heading on a narrow phone), but this
+     guards against it regardless of the cause. */
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* --- Subtle greenish animated background ---
+   Two soft, blurred blobs drifting slowly behind all page content.
+   Fixed + pointer-events:none + negative z-index so it never affects
+   layout, scrolling, or interactivity of anything on top of it. */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  pointer-events: none;
+  will-change: transform;
+}
+
+body::before {
+  top: -10%;
+  left: -10%;
+  width: 45vw;
+  height: 45vw;
+  background: radial-gradient(circle, #A9C9A4 0%, transparent 70%);
+  animation: bgFloatOne 22s ease-in-out infinite;
+}
+
+body::after {
+  bottom: -15%;
+  right: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, #7FA98A 0%, transparent 70%);
+  animation: bgFloatTwo 26s ease-in-out infinite;
+}
+
+@keyframes bgFloatOne {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(6vw, 4vh) scale(1.1); }
+}
+
+@keyframes bgFloatTwo {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-5vw, -5vh) scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    animation: none;
+  }
 }
 
 /* Any page content wrapper should never exceed a comfortable reading
