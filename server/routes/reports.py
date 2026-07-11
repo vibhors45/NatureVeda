@@ -20,9 +20,6 @@ PLANTS_CSV = BASE_DIR / "ml" / "datasets" / "plants" / "metadata" / "plants.csv"
 
 ALLOWED_EXTENSIONS = {".pdf", ".png", ".jpg", ".jpeg", ".docx"}
 
-# Simple keyword -> search-term mapping so a flagged lab value can suggest
-# a relevant plant from plants.csv. This is intentionally lightweight
-# (keyword match against key_benefits), not a diagnostic engine.
 TEST_KEYWORD_MAP = {
     "cholesterol": "cholesterol",
     "ldl": "cholesterol",
@@ -62,8 +59,8 @@ def _suggest_plants_for_row(test_name: str, plants_df: pd.DataFrame):
 @router.post("/scan")
 async def scan_report(file: UploadFile = File(...)):
     """
-    Accepts a PDF, PNG, JPEG, or DOCX health report upload, OCRs it
-    (for image types), and returns structured, flagged values along with
+    Accepts a PDF, PNG, JPEG, or DOCX health report upload, OCRs it via a
+    hosted OCR API, and returns structured, flagged values along with
     relevant traditional plant suggestions for any out-of-range results.
     """
     ext = os.path.splitext(file.filename)[1].lower()
@@ -84,9 +81,10 @@ async def scan_report(file: UploadFile = File(...)):
         else:
             return {"error": "DOCX parsing not yet implemented in this starter version."}
 
+        print("RAW OCR TEXT:", repr(raw_text[:1500]))
+
         result = parse_report_text(raw_text)
 
-        # Attach plant suggestions to any flagged (high/low) rows.
         if result.get("parsed_rows"):
             plants_df = pd.read_csv(PLANTS_CSV)
             for row in result["parsed_rows"]:
