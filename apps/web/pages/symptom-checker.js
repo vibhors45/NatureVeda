@@ -1,3 +1,4 @@
+import PlantImage from "../components/PlantImage";
 import { useState } from "react";
 import NavBar from "../components/NavBar";
 
@@ -118,6 +119,10 @@ export default function SymptomChecker() {
               <p style={styles.matchedSymptom}>
                 Closest match: "{match.matched_symptom}"
               </p>
+              <PlantImage
+                name={match.recommended_plant}
+                style={{ marginBottom: 10, borderRadius: 10 }}
+              />
               <h3 style={styles.remedyName}>{match.recommended_plant}</h3>
               <p style={styles.therapyName}>{match.recommended_therapy}</p>
 

@@ -1,3 +1,4 @@
+import PlantImage from "../components/PlantImage";
 import { useState } from "react";
 import NavBar from "../components/NavBar";
 
@@ -148,6 +149,10 @@ export default function ReportScanner() {
                     <p style={styles.suggestionLabel}>Traditional guidance:</p>
                     {row.suggested_plants.map((p, j) => (
                       <div key={j} style={styles.suggestionItem}>
+                        <PlantImage
+                          name={p.name}
+                          style={{ marginBottom: 6, borderRadius: 8, maxWidth: 120 }}
+                        />
                         <strong>{p.name}</strong> — {p.preparation}{" "}
                         <span style={styles.dosageText}>({p.dosage})</span>
                       </div>
