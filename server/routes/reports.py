@@ -81,8 +81,6 @@ async def scan_report(file: UploadFile = File(...)):
         else:
             return {"error": "DOCX parsing not yet implemented in this starter version."}
 
-        print("RAW OCR TEXT:", repr(raw_text[:1500]))
-
         result = parse_report_text(raw_text)
 
         if result.get("parsed_rows"):

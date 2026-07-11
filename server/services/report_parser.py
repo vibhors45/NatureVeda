@@ -1,14 +1,13 @@
 """
 Health report parsing service.
 
-Takes raw text (from a hosted OCR API, or plain text for testing) and
-extracts test name / result / unit / reference range rows using pattern
-matching. Then flags values outside the reference range.
-
-Uses re.search (not a strict full-line match) with a lenient pattern,
-since real-world OCR output rarely has perfectly aligned whitespace --
-column spacing varies, units are sometimes dropped, and separators like
-"-" vs "to" vs an en-dash all show up in real reports.
+Takes raw text (from a hosted OCR API) and extracts test name / result /
+unit / reference range rows. Real-world OCR output from scanned lab
+reports rarely keeps a test's name, value, unit, and reference range on
+one line -- each piece usually lands on its own line, with the true
+reference range often sitting far away in a separate "Bio. Ref. Interval"
+style section. This parser is line-sequence aware to handle that, rather
+than assuming a single-line layout.
 
 This intentionally does NOT attempt a medical diagnosis -- it only
 surfaces which values are outside range and suggests this may correlate
@@ -20,19 +19,6 @@ import re
 
 import requests
 
-# Lenient row pattern: test name (letters/numbers/spaces/parens), then a
-# result number, then an optional unit, then a reference range in any of
-# a few common formats. Uses re.search per line rather than a full-line
-# match, so leading/trailing OCR noise doesn't break the whole line.
-ROW_PATTERN = re.compile(
-    r"(?P<test>[A-Za-z][A-Za-z0-9 /\(\)\.]{2,40}?)\s+"
-    r"(?P<result>\d+\.?\d*)\s*"
-    r"(?P<unit>[A-Za-z/%µ]{1,10})?\s*"
-    r"[\(\[]?"
-    r"(?P<ref_range>\d+\.?\d*\s*(?:-|–|to)\s*\d+\.?\d*|[<>]\s*\d+\.?\d*)"
-    r"[\)\]]?"
-)
-
 DISCLAIMER = (
     "This is general traditional wellness information based on your report "
     "values, not a medical diagnosis. Please discuss these results with a "
@@ -42,13 +28,29 @@ DISCLAIMER = (
 OCR_SPACE_API_URL = "https://api.ocr.space/parse/image"
 OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", "helloworld")
 
+NUMBER_ONLY = re.compile(r"^[\d,]{1,6}\.?\d{0,3}$")
+RANGE_LINE = re.compile(r"^(\d+\.?\d*)\s*(?:-|–|to)\s*(\d+\.?\d*)$")
+LESS_GREATER_LINE = re.compile(r"^[<>]\s*=?\s*(\d+\.?\d*)$")
+UNIT_LINE = re.compile(r"^[A-Za-zµ%/]{1,12}$")
+
+STOPWORDS = {
+    "test name", "results", "result", "units", "unit", "reference range",
+    "ref range", "ref. range", "bio. ref. interval", "interpretation",
+    "status", "normal", "note", "value", "values", "test description",
+    "reference interval", "biological reference interval",
+}
+
+
+def _is_stopword(line: str) -> bool:
+    return line.strip().lower().rstrip(":") in STOPWORDS
+
 
 def extract_text_from_image(file_path: str) -> str:
     """
     OCR an uploaded report (image or PDF) using the OCR.space hosted API.
-    Works for both images and PDFs, so this same function now handles both
-    -- no local Tesseract or Poppler binary required, which matters since
-    Render's native environment doesn't allow installing either.
+    Works for both images and PDFs -- no local Tesseract or Poppler binary
+    required, which matters since Render's native environment doesn't
+    allow installing either.
     """
     with open(file_path, "rb") as f:
         response = requests.post(
@@ -75,41 +77,91 @@ def extract_text_from_image(file_path: str) -> str:
 
 def parse_report_text(raw_text: str) -> dict:
     """
-    Parses raw report text (from OCR or plain text) into structured rows,
-    and flags which values fall outside their reference range.
+    Parses raw OCR text into structured rows and flags out-of-range values.
+
+    Strategy: walk the lines looking for a line that is just a number
+    (a result value). Its test name is the nearest preceding non-stopword
+    text line; its unit is the line right after it, if it looks like a
+    unit; its reference range is searched for in the next few lines. If
+    no range is found nearby, a second pass looks for a "Bio. Ref.
+    Interval" style section near the end of the report and assigns
+    ranges from there in order, which is how many Indian lab reports
+    (e.g. Dr Lal PathLabs, Redcliffe) lay out the true reference range
+    away from the individual result rows.
     """
+    lines = [l.strip() for l in raw_text.splitlines() if l.strip()]
+    n = len(lines)
     rows = []
-    for line in raw_text.splitlines():
-        line = line.strip()
-        if not line:
+    used_range_idx = set()
+
+    for i, line in enumerate(lines):
+        clean = line.replace(",", "")
+        if not NUMBER_ONLY.match(clean):
             continue
-
-        match = ROW_PATTERN.search(line)
-        if not match:
-            continue
-
-        test_name = match.group("test").strip(" :-")
-        result_str = match.group("result").replace(",", "")
-        unit = (match.group("unit") or "").strip()
-        ref_range = match.group("ref_range").strip()
-
-        if not re.search(r"[A-Za-z]", test_name):
-            continue
-
         try:
-            result_value = float(result_str)
+            result_value = float(clean)
         except ValueError:
             continue
 
-        flag = _check_out_of_range(result_value, ref_range)
+        test_name = None
+        for j in range(i - 1, max(i - 4, -1), -1):
+            cand = lines[j]
+            if _is_stopword(cand) or NUMBER_ONLY.match(cand):
+                continue
+            if re.search(r"[A-Za-z]", cand) and 2 <= len(cand) <= 60:
+                test_name = cand.strip(" :-")
+                break
+        if not test_name:
+            continue
+
+        unit = ""
+        search_start = i + 1
+        if search_start < n and UNIT_LINE.match(lines[search_start]):
+            unit = lines[search_start]
+            search_start += 1
+
+        ref_range = None
+        for k in range(search_start, min(search_start + 4, n)):
+            if k in used_range_idx:
+                continue
+            if RANGE_LINE.match(lines[k]) or LESS_GREATER_LINE.match(lines[k]):
+                ref_range = lines[k]
+                used_range_idx.add(k)
+                break
+
+        flag = _check_out_of_range(result_value, ref_range) if ref_range else "unknown"
 
         rows.append({
             "test_name": test_name,
             "result": result_value,
             "unit": unit,
-            "reference_range": ref_range,
+            "reference_range": ref_range or "not detected",
             "flag": flag,
         })
+
+    # Fallback: assign ranges from a "Bio. Ref. Interval" style section
+    # to any rows that couldn't find one nearby, matched in order.
+    unknown_indices = [idx for idx, r in enumerate(rows) if r["flag"] == "unknown"]
+    if unknown_indices:
+        header_idx = None
+        for idx, line in enumerate(lines):
+            if re.search(
+                r"(?i)bio\.?\s*ref\.?\s*interval|reference\s*range|reference\s*interval",
+                line,
+            ):
+                header_idx = idx
+        if header_idx is not None:
+            collected = []
+            idx = header_idx + 1
+            while idx < n and RANGE_LINE.match(lines[idx]):
+                collected.append(lines[idx])
+                idx += 1
+            if len(collected) == len(unknown_indices):
+                for pos, row_idx in enumerate(unknown_indices):
+                    rows[row_idx]["reference_range"] = collected[pos]
+                    rows[row_idx]["flag"] = _check_out_of_range(
+                        rows[row_idx]["result"], collected[pos]
+                    )
 
     return {
         "parsed_rows": rows,
@@ -120,8 +172,8 @@ def parse_report_text(raw_text: str) -> dict:
 def _check_out_of_range(value: float, ref_range: str) -> str:
     ref_range = ref_range.strip()
 
-    less_than = re.match(r"<\s*([\d.]+)", ref_range)
-    greater_than = re.match(r">\s*([\d.]+)", ref_range)
+    less_than = re.match(r"<\s*=?\s*([\d.]+)", ref_range)
+    greater_than = re.match(r">\s*=?\s*([\d.]+)", ref_range)
     between = re.match(r"([\d.]+)\s*(?:-|–|to)\s*([\d.]+)", ref_range)
 
     if less_than:
