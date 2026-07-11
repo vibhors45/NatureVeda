@@ -39,9 +39,11 @@ def health_check():
     return {"status": "healthy"}
 
 
-# Serves the training images so the frontend can show a reference photo
-# of the identified plant, e.g. GET /plant-images/Neem/AI-S-020.jpg
-PLANT_IMAGES_DIR = Path(__file__).resolve().parent.parent / "ml" / "datasets" / "plants" / "images"
+# Serves one representative photo per plant species so the frontend can
+# show a reference image. This is the small "images_lite" folder (one
+# image per species, ~11MB total) that's committed to git -- NOT the
+# full training dataset, which stays local-only for training.
+PLANT_IMAGES_DIR = Path(__file__).resolve().parent.parent / "ml" / "datasets" / "plants" / "images_lite"
 if PLANT_IMAGES_DIR.exists():
     app.mount(
         "/plant-images",

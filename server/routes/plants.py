@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 PLANTS_CSV = BASE_DIR / "ml" / "datasets" / "plants" / "metadata" / "plants.csv"
 MODEL_PATH = BASE_DIR / "ml" / "models" / "plant_classifier" / "model.tflite"
 CLASS_NAMES_PATH = BASE_DIR / "ml" / "models" / "plant_classifier" / "class_names.txt"
-PLANT_IMAGES_DIR = BASE_DIR / "ml" / "datasets" / "plants" / "images"
+PLANT_IMAGES_DIR = BASE_DIR / "ml" / "datasets" / "plants" / "images_lite"
 
 CONFIDENCE_THRESHOLD = 40.0
 
