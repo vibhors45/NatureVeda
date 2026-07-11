@@ -1,7 +1,8 @@
 """
 Health report scanning routes -- accepts an uploaded report image and
 returns parsed, flagged values with a clear non-diagnostic disclaimer,
-plus relevant plant suggestions for any flagged (high/low) values.
+plus relevant Ayurvedic plant AND homeopathic remedy suggestions for any
+flagged (high/low) values.
 """
 
 import shutil
@@ -17,6 +18,7 @@ router = APIRouter()
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 PLANTS_CSV = BASE_DIR / "ml" / "datasets" / "plants" / "metadata" / "plants.csv"
+HOMEOPATHY_CSV = BASE_DIR / "ml" / "datasets" / "homeopathy" / "homeopathy_remedies.csv"
 
 ALLOWED_EXTENSIONS = {".pdf", ".png", ".jpg", ".jpeg", ".docx"}
 
@@ -34,6 +36,22 @@ TEST_KEYWORD_MAP = {
     "wbc": "immunity",
     "vitamin d": "immunity",
     "vitamin b12": "energy",
+}
+
+HOMEOPATHY_KEYWORD_MAP = {
+    "cholesterol": "heart",
+    "ldl": "heart",
+    "hdl": "heart",
+    "triglyceride": "digestion",
+    "glucose": "fatigue",
+    "sugar": "fatigue",
+    "hba1c": "fatigue",
+    "tsh": "fatigue",
+    "thyroid": "fatigue",
+    "hemoglobin": "weakness",
+    "wbc": "fever",
+    "vitamin d": "weakness",
+    "vitamin b12": "fatigue",
 }
 
 
@@ -56,12 +74,34 @@ def _suggest_plants_for_row(test_name: str, plants_df: pd.DataFrame):
     )
 
 
+def _suggest_homeopathy_for_row(test_name: str, homeopathy_df: pd.DataFrame):
+    test_lower = test_name.lower()
+    search_term = None
+    for keyword, term in HOMEOPATHY_KEYWORD_MAP.items():
+        if keyword in test_lower:
+            search_term = term
+            break
+
+    if not search_term:
+        return []
+
+    matches = homeopathy_df[
+        homeopathy_df["key_symptoms_indicated"]
+        .str.lower()
+        .str.contains(search_term, na=False)
+    ]
+    return matches.head(2)[
+        ["remedy_name", "key_symptoms_indicated", "potency_common", "usage_notes"]
+    ].to_dict(orient="records")
+
+
 @router.post("/scan")
 async def scan_report(file: UploadFile = File(...)):
     """
     Accepts a PDF, PNG, JPEG, or DOCX health report upload, OCRs it via a
     hosted OCR API, and returns structured, flagged values along with
-    relevant traditional plant suggestions for any out-of-range results.
+    relevant Ayurvedic plant and homeopathic remedy suggestions for any
+    out-of-range results.
     """
     ext = os.path.splitext(file.filename)[1].lower()
     if ext not in ALLOWED_EXTENSIONS:
@@ -85,13 +125,18 @@ async def scan_report(file: UploadFile = File(...)):
 
         if result.get("parsed_rows"):
             plants_df = pd.read_csv(PLANTS_CSV)
+            homeopathy_df = pd.read_csv(HOMEOPATHY_CSV)
             for row in result["parsed_rows"]:
                 if row["flag"] in ("high", "low"):
                     row["suggested_plants"] = _suggest_plants_for_row(
                         row["test_name"], plants_df
                     )
+                    row["suggested_homeopathy"] = _suggest_homeopathy_for_row(
+                        row["test_name"], homeopathy_df
+                    )
                 else:
                     row["suggested_plants"] = []
+                    row["suggested_homeopathy"] = []
 
         return result
 

@@ -25,9 +25,6 @@ export default function ReportScanner() {
     const formData = new FormData();
     formData.append("file", file);
 
-    // OCR + PDF parsing can be slow, and free-tier hosting (e.g. Render)
-    // can also take 30-60s to wake up from sleep on the first request --
-    // give it real time instead of failing fast.
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 60000);
 
@@ -40,15 +37,11 @@ export default function ReportScanner() {
       clearTimeout(timeoutId);
 
       if (!res.ok) {
-        // Server responded, but with an error status -- this is a real
-        // backend problem on this route, not the server being offline.
         let detail = "";
         try {
           const body = await res.json();
           detail = body.error || body.message || "";
-        } catch (parseErr) {
-          // response wasn't JSON (e.g. an HTML error page) -- ignore
-        }
+        } catch (parseErr) {}
         throw new Error(
           `Server error (${res.status})${detail ? `: ${detail}` : ""}`
         );
@@ -146,7 +139,7 @@ export default function ReportScanner() {
                 </p>
                 {row.suggested_plants && row.suggested_plants.length > 0 && (
                   <div style={styles.suggestionBox}>
-                    <p style={styles.suggestionLabel}>Traditional guidance:</p>
+                    <p style={styles.suggestionLabel}>Ayurvedic guidance:</p>
                     {row.suggested_plants.map((p, j) => (
                       <div key={j} style={styles.suggestionItem}>
                         <PlantImage
@@ -155,6 +148,19 @@ export default function ReportScanner() {
                         />
                         <strong>{p.name}</strong> — {p.preparation}{" "}
                         <span style={styles.dosageText}>({p.dosage})</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {row.suggested_homeopathy && row.suggested_homeopathy.length > 0 && (
+                  <div style={styles.suggestionBox}>
+                    <p style={styles.suggestionLabel}>Homeopathic guidance:</p>
+                    {row.suggested_homeopathy.map((h, j) => (
+                      <div key={j} style={styles.suggestionItem}>
+                        <strong>{h.remedy_name}</strong> ({h.potency_common}) —{" "}
+                        {h.key_symptoms_indicated}
+                        <div style={styles.dosageText}>{h.usage_notes}</div>
                       </div>
                     ))}
                   </div>
