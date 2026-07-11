@@ -1,8 +1,9 @@
 import threading
+import re
 
 import pandas as pd
-
-MODEL_NAME = "paraphrase-multilingual-MiniLM-L12-v2"
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 EMERGENCY_MESSAGE = (
     "This sounds like it could be a medical emergency. Please seek immediate "
@@ -10,70 +11,71 @@ EMERGENCY_MESSAGE = (
     "provide guidance for this situation."
 )
 
-# Lazy-loaded globals
-_model = None
-_util = None
-_model_lock = threading.Lock()
+# Minimum similarity score for a match to be considered meaningful at all.
+# Without this, a near-zero-similarity row can still land in the top-k slice
+# and get treated as a real match (this is what caused the false-emergency bug).
+MIN_CONFIDENCE = 0.12
+
+# Common word-form variants TF-IDF won't connect on its own (no stemming).
+WORD_VARIANTS = {
+    "dizzy": "dizziness",
+    "dizzier": "dizziness",
+    "vomiting": "vomit",
+    "vomited": "vomit",
+    "nauseous": "nausea",
+    "nauseated": "nausea",
+    "coughing": "cough",
+    "aching": "ache",
+    "aches": "ache",
+}
 
 
-def get_model():
-    global _model, _util
-
-    if _model is None:
-        with _model_lock:
-            if _model is None:
-                from sentence_transformers import SentenceTransformer, util
-
-                _model = SentenceTransformer(MODEL_NAME)
-                _util = util
-
-    return _model, _util
+def _normalize(text: str) -> str:
+    text = text.lower()
+    words = re.findall(r"[a-zA-Z]+", text)
+    words = [WORD_VARIANTS.get(w, w) for w in words]
+    return " ".join(words)
 
 
 class SymptomMatcher:
     def __init__(self, csv_path: str):
         self.df = pd.read_csv(csv_path)
-
         self.reference_texts = self.df["symptom_text"].tolist()
+        self._normalized_refs = [_normalize(t) for t in self.reference_texts]
+        self._vectorizer = None
+        self._reference_matrix = None
+        self._lock = threading.Lock()
 
-        self.reference_embeddings = None
-
-    def _ensure_embeddings(self):
-        if self.reference_embeddings is None:
-            model, _ = get_model()
-
-            self.reference_embeddings = model.encode(
-                self.reference_texts,
-                convert_to_tensor=True,
-                show_progress_bar=False,
-            )
+    def _ensure_fitted(self):
+        if self._vectorizer is None:
+            with self._lock:
+                if self._vectorizer is None:
+                    self._vectorizer = TfidfVectorizer()
+                    self._reference_matrix = self._vectorizer.fit_transform(
+                        self._normalized_refs
+                    )
 
     def match(self, user_text: str, top_k: int = 3):
-        self._ensure_embeddings()
+        self._ensure_fitted()
 
-        model, util = get_model()
+        query_vec = self._vectorizer.transform([_normalize(user_text)])
+        scores = cosine_similarity(query_vec, self._reference_matrix)[0]
 
-        query_embedding = model.encode(
-            user_text,
-            convert_to_tensor=True,
-            show_progress_bar=False,
-        )
-
-        scores = util.cos_sim(query_embedding, self.reference_embeddings)[0]
-
-        top_results = scores.topk(k=min(top_k, len(self.reference_texts)))
+        top_k = min(top_k, len(self.reference_texts))
+        top_indices = scores.argsort()[::-1][:top_k]
 
         matches = []
+        for idx in top_indices:
+            score = float(scores[idx])
+            if score < MIN_CONFIDENCE:
+                continue
 
-        for score, idx in zip(top_results.values, top_results.indices):
             row = self.df.iloc[int(idx)]
-
             if row["severity_flag"] == "emergency":
                 return {
                     "emergency": True,
                     "message": EMERGENCY_MESSAGE,
                 }
-
             matches.append(
                 {
                     "matched_symptom": row["symptom_text"],
@@ -81,7 +83,7 @@ class SymptomMatcher:
                     "recommended_plant": row["recommended_plant"],
                     "recommended_therapy": row["recommended_therapy"],
                     "severity_flag": row["severity_flag"],
-                    "confidence": float(score),
+                    "confidence": score,
                 }
             )
 
