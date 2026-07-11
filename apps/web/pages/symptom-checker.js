@@ -17,10 +17,6 @@ export default function SymptomChecker() {
     setError(null);
     setResult(null);
 
-    // Free-tier hosting (e.g. Render) can take 30-60s to wake up from
-    // sleep on the first request, and embedding-based symptom matching
-    // can be slow on a cold model load -- give it real time instead of
-    // failing fast.
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 60000);
 
@@ -38,9 +34,7 @@ export default function SymptomChecker() {
         try {
           const body = await res.json();
           detail = body.error || body.message || "";
-        } catch (parseErr) {
-          // response wasn't JSON (e.g. an HTML error page) -- ignore
-        }
+        } catch (parseErr) {}
         throw new Error(
           `Server error (${res.status})${detail ? `: ${detail}` : ""}`
         );
