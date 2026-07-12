@@ -148,6 +148,12 @@ export default function SignIn() {
           )}
 
           {error && <p style={pageStyles.errorText}>{error}</p>}
+
+          <p style={pageStyles.footerNote}>
+            Signing in lets NatureVeda save your plant scans, symptom
+            checks, and report history so you can revisit them anytime —
+            you can still use every feature without an account.
+          </p>
         </div>
       </div>
     </div>
@@ -297,6 +303,15 @@ const pageStyles = {
     color: "#A33A3A",
     fontSize: 13,
     marginTop: 12,
+    textAlign: "center",
+  },
+  footerNote: {
+    marginTop: 20,
+    paddingTop: 16,
+    borderTop: "1px solid #E4E0D5",
+    fontSize: 12.5,
+    color: "#8A8A7C",
+    lineHeight: 1.5,
     textAlign: "center",
   },
 };
