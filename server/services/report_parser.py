@@ -29,8 +29,12 @@ OCR_SPACE_API_URL = "https://api.ocr.space/parse/image"
 OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", "helloworld")
 
 NUMBER_ONLY = re.compile(r"^[\d,]{1,6}\.?\d{0,3}$")
-RANGE_LINE = re.compile(r"^(\d+\.?\d*)\s*(?:-|–|to)\s*(\d+\.?\d*)$")
-LESS_GREATER_LINE = re.compile(r"^[<>]\s*=?\s*(\d+\.?\d*)$")
+# Not anchored to the whole line anymore -- real reports often put the
+# range alongside other text on the same line (e.g. "70 - 100 mg/dL" or
+# "Normal: 70-100"), so we search for the pattern within the line rather
+# than requiring the entire line to be just the range.
+RANGE_LINE = re.compile(r"(\d+\.?\d*)\s*(?:-|–|to)\s*(\d+\.?\d*)")
+LESS_GREATER_LINE = re.compile(r"[<>]\s*=?\s*(\d+\.?\d*)")
 UNIT_LINE = re.compile(r"^[A-Za-zµ%/]{1,12}$")
 
 STOPWORDS = {
@@ -81,13 +85,14 @@ def parse_report_text(raw_text: str) -> dict:
 
     Strategy: walk the lines looking for a line that is just a number
     (a result value). Its test name is the nearest preceding non-stopword
-    text line; its unit is the line right after it, if it looks like a
-    unit; its reference range is searched for in the next few lines. If
-    no range is found nearby, a second pass looks for a "Bio. Ref.
-    Interval" style section near the end of the report and assigns
-    ranges from there in order, which is how many Indian lab reports
-    (e.g. Dr Lal PathLabs, Redcliffe) lay out the true reference range
-    away from the individual result rows.
+    text line (that doesn't itself look like a bare unit, e.g. a leftover
+    "mg/dL" line from the previous row); its unit is the line right after
+    it, if it looks like a unit; its reference range is searched for in
+    the next few lines. If no range is found nearby, a second pass looks
+    for a "Bio. Ref. Interval" style section near the end of the report
+    and assigns ranges from there in order, which is how many Indian lab
+    reports (e.g. Dr Lal PathLabs, Redcliffe) lay out the true reference
+    range away from the individual result rows.
     """
     lines = [l.strip() for l in raw_text.splitlines() if l.strip()]
     n = len(lines)
@@ -108,6 +113,11 @@ def parse_report_text(raw_text: str) -> dict:
             cand = lines[j]
             if _is_stopword(cand) or NUMBER_ONLY.match(cand):
                 continue
+            # Skip lines that are themselves just a bare unit (e.g. a
+            # leftover "mg/dL" from the previous row) -- a real test
+            # name won't look like a unit on its own.
+            if UNIT_LINE.match(cand):
+                continue
             if re.search(r"[A-Za-z]", cand) and 2 <= len(cand) <= 60:
                 test_name = cand.strip(" :-")
                 break
@@ -124,8 +134,14 @@ def parse_report_text(raw_text: str) -> dict:
         for k in range(search_start, min(search_start + 4, n)):
             if k in used_range_idx:
                 continue
-            if RANGE_LINE.match(lines[k]) or LESS_GREATER_LINE.match(lines[k]):
-                ref_range = lines[k]
+            range_match = RANGE_LINE.search(lines[k])
+            lg_match = LESS_GREATER_LINE.search(lines[k])
+            if range_match:
+                ref_range = range_match.group(0)
+                used_range_idx.add(k)
+                break
+            if lg_match:
+                ref_range = lg_match.group(0)
                 used_range_idx.add(k)
                 break
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import NavBar from "../components/NavBar";
+import PlantImage from "../components/PlantImage";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://127.0.0.1:8000";
 
@@ -86,6 +87,12 @@ export default function SymptomChecker() {
               <p style={styles.matchedSymptom}>
                 Closest match: "{match.matched_symptom}"
               </p>
+
+              <PlantImage
+                name={match.recommended_plant}
+                style={styles.matchPlantImage}
+              />
+
               <h3 style={styles.remedyName}>{match.recommended_plant}</h3>
               <p style={styles.therapyName}>{match.recommended_therapy}</p>
 
@@ -228,6 +235,9 @@ const styles = {
     color: "#6B6B5E",
     fontStyle: "italic",
     marginBottom: 8,
+  },
+  matchPlantImage: {
+    marginBottom: 12,
   },
   remedyName: {
     fontFamily: "Georgia, serif",

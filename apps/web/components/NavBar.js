@@ -20,8 +20,19 @@ export default function NavBar() {
   return (
     <nav className="nav-bar" style={styles.nav}>
       <div style={styles.topRow}>
-        <Link href="/" style={styles.logo} onClick={() => setOpen(false)}>
-          NatureVeda
+        <Link href="/" style={styles.logoWrap} onClick={() => setOpen(false)}>
+          {/* Add the logo file at apps/web/public/logo.png and it will
+              appear automatically -- hides itself if missing so it
+              never shows a broken-image icon in the meantime. */}
+          <img
+            src="/logo.png"
+            alt=""
+            style={styles.logoImg}
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+          />
+          <span style={styles.logo}>NatureVeda</span>
         </Link>
 
         {/* Desktop links -- hidden on mobile via CSS below */}
@@ -103,6 +114,17 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
     padding: "16px 24px",
+  },
+  logoWrap: {
+    display: "flex",
+    alignItems: "center",
+    gap: 8,
+    textDecoration: "none",
+  },
+  logoImg: {
+    height: 32,
+    width: 32,
+    objectFit: "contain",
   },
   logo: {
     fontFamily: "Georgia, serif",
