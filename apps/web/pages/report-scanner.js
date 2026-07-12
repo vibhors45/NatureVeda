@@ -1,5 +1,6 @@
 import { useState } from "react";
 import NavBar from "../components/NavBar";
+import PlantImage from "../components/PlantImage";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://127.0.0.1:8000";
 
@@ -8,11 +9,13 @@ export default function ReportScanner() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  const [expandedKey, setExpandedKey] = useState(null);
 
   function handleFileChange(e) {
     setFile(e.target.files[0]);
     setResult(null);
     setError(null);
+    setExpandedKey(null);
   }
 
   async function handleSubmit() {
@@ -20,6 +23,7 @@ export default function ReportScanner() {
     setLoading(true);
     setError(null);
     setResult(null);
+    setExpandedKey(null);
 
     const formData = new FormData();
     formData.append("file", file);
@@ -41,6 +45,10 @@ export default function ReportScanner() {
     }
   }
 
+  function toggleExpanded(key) {
+    setExpandedKey((current) => (current === key ? null : key));
+  }
+
   return (
     <div>
       <NavBar />
@@ -50,6 +58,13 @@ export default function ReportScanner() {
         <p style={styles.subtext}>
           Upload a PDF, PNG, or JPEG lab report to see which values fall
           outside their reference range.
+        </p>
+        <p style={styles.hint}>
+          Works best with clear, printed or clearly-scanned lab reports that
+          use a Test / Result / Unit / Reference Range table layout — e.g.
+          CBC, lipid profile, thyroid panel, blood sugar, or liver/kidney
+          function reports. Blurry photos or handwritten reports may not
+          parse well.
         </p>
 
         <div style={styles.uploadBox}>
@@ -102,15 +117,55 @@ export default function ReportScanner() {
                 <p style={styles.rowDetail}>
                   {row.result} {row.unit} — reference: {row.reference_range}
                 </p>
+
                 {row.suggested_plants && row.suggested_plants.length > 0 && (
                   <div style={styles.suggestionBox}>
                     <p style={styles.suggestionLabel}>Ayurvedic Guidance</p>
-                    {row.suggested_plants.map((p, j) => (
-                      <div key={j} style={styles.suggestionItem}>
-                        <strong>{p.name}</strong> — {p.preparation}{" "}
-                        <span style={styles.dosageText}>({p.dosage})</span>
-                      </div>
-                    ))}
+                    <div style={styles.plantCardRow}>
+                      {row.suggested_plants.map((p, j) => {
+                        const key = `${i}-${j}`;
+                        const isOpen = expandedKey === key;
+                        return (
+                          <div key={key} style={styles.plantCardWrap}>
+                            <button
+                              onClick={() => toggleExpanded(key)}
+                              style={styles.plantCard}
+                            >
+                              <PlantImage
+                                name={p.name}
+                                imageUrl={p.image}
+                                style={styles.plantThumb}
+                              />
+                              <span style={styles.plantCardName}>{p.name}</span>
+                              <span style={styles.plantCardHint}>
+                                {isOpen ? "Tap to close" : "Tap for full remedy"}
+                              </span>
+                            </button>
+
+                            {isOpen && (
+                              <div style={styles.plantExpanded}>
+                                <p>
+                                  <strong>Preparation:</strong> {p.preparation}
+                                </p>
+                                <p>
+                                  <strong>Dosage:</strong> {p.dosage}
+                                </p>
+                                {p.duration && (
+                                  <p>
+                                    <strong>Duration:</strong> {p.duration}
+                                  </p>
+                                )}
+                                {p.safety_notes && (
+                                  <p style={styles.safetyNote}>
+                                    <strong>Safety:</strong> {p.safety_notes}
+                                  </p>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 )}
 
@@ -158,7 +213,13 @@ const styles = {
     fontWeight: 600,
   },
   h1: { fontFamily: "Georgia, serif", fontSize: 32, margin: "8px 0" },
-  subtext: { color: "#6B6B5E", fontSize: 15, marginBottom: 24 },
+  subtext: { color: "#6B6B5E", fontSize: 15, marginBottom: 8 },
+  hint: {
+    color: "#8A8A7C",
+    fontSize: 12.5,
+    marginBottom: 24,
+    lineHeight: 1.5,
+  },
   uploadBox: {
     border: "1px dashed #C9C4B4",
     borderRadius: 16,
@@ -226,10 +287,50 @@ const styles = {
     textTransform: "uppercase",
     letterSpacing: 0.5,
     color: "#946200",
-    marginBottom: 4,
+    marginBottom: 8,
   },
-  suggestionItem: { fontSize: 13, color: "#3D3D33", marginBottom: 4 },
-  dosageText: { color: "#8A8A7C" },
+  plantCardRow: {
+    display: "flex",
+    gap: 10,
+    flexWrap: "wrap",
+  },
+  plantCardWrap: { width: 120 },
+  plantCard: {
+    width: "100%",
+    border: "1px solid #EEEBE2",
+    borderRadius: 12,
+    padding: 8,
+    backgroundColor: "#fff",
+    cursor: "pointer",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: 4,
+    font: "inherit",
+  },
+  plantThumb: { width: "100%", height: 72, borderRadius: 8, marginBottom: 2 },
+  plantCardName: {
+    fontSize: 12.5,
+    fontWeight: 600,
+    color: "#2B2B24",
+    textAlign: "center",
+  },
+  plantCardHint: {
+    fontSize: 10.5,
+    color: "#8A8A7C",
+  },
+  plantExpanded: {
+    marginTop: 8,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: "#FCF7EE",
+    border: "1px solid #F0EBD8",
+    fontSize: 12.5,
+    color: "#3D3D33",
+    lineHeight: 1.5,
+    width: 260,
+  },
+  safetyNote: { color: "#946200" },
   homeopathyBox: {
     marginTop: 10,
     paddingTop: 10,
